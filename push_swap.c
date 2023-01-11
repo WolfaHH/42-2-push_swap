@@ -5,7 +5,7 @@
 //Prototypes
 void merge_sort(int *list, int start, int end);
 void merge(int *list, int start, int mid, int end);
-void push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display, int *sorted_list);
+int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display, int *sorted_list);
 void swap_A(int *stackA, int *sizeA, char *result_to_display);
 void swap_B(int *stackB, int *sizeB, char *result_to_display);
 void swap_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display);
@@ -73,7 +73,8 @@ int main(int argc, char *argv[]) {
 	push_swap(stackA, stackB, sizeA, sizeB, result_to_display, sorted_list);
 	
 	//Display result
-	printf("%s\n", result_to_display);
+	printf("%s", result_to_display);
+	/*
 	printf("Number of instructions : %d\n", (int)(strlen(result_to_display) / 3));
 	printf("Stack A : ");
 	for (int i = 0; i < *sizeA; i++) {
@@ -84,6 +85,7 @@ int main(int argc, char *argv[]) {
 		printf("%d ", stackB[i]);
 	}
 	printf("\n");
+	*/
 
 	//Free memory
 	free(stackA);
@@ -151,19 +153,26 @@ void merge(int *list, int start, int mid, int end) {
 }
 
 //Push_swap algorithm
-void push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display, int *sorted_list) {
+int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display, int *sorted_list) {
 	int i = 0;
 	int j = 0;
-	int n = (sizeof(sorted_list) * sizeof(sorted_list[0]));
+	int e;
+	int n = *sizeA;
 	//push_B(stackA, stackB, sizeA, sizeB, result_to_display);
 	//push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 
 	// Check si trié dont Cas ou n=1
-	if (sorted_list == stackA)
-		return 0;
+	for (int i = 0; i <= *sizeA;i++)
+	{
+		if (sorted_list[i] != stackA[i])
+			break;
+		if (i == *sizeA)
+			return 0;
+	}
 
 	if (n <= 10) // Cas ou n <= 10
 	{
+		
 		if (n == 2) // Cas ou n=2; swap 1 time if needed
 			swap_A(stackA, sizeA, result_to_display);
 		else if (n == 3) // Cas ou n=3; 5 combinaisons possibles
@@ -187,16 +196,73 @@ void push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to
 		}
 		else // Autres cas; tri par selection, on ramène le plus petit nb par le haut ou le bas selon la distance
 		{
-			
+			while (sorted_list[j] != sorted_list[n])
+			{
+				if (sorted_list[j] == stackA[0])
+				{
+					push_B(stackA, stackB, sizeA, sizeB, result_to_display);
+					j++;
+				}
+				else
+				{
+					rotate_A(stackA, sizeA, result_to_display);
+				}
+						//printf("1:%d ", sorted_list[*sizeA-1]);
+						//printf("2:%d\n", sorted_list[j]);
+			}
+			for (int i = 0; i < n; i++)
+				push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 		}
 
 	}
 	else if (n > 10 && n <= 100) // Cas ou n > 10 && A <= 100
 	{
-		// On divise sorted_list par 4 chunks
-		// On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RA et PB
+		
+		for (int i = 1; i <= 4;i++) // On divise sorted_list par 4 chunks
+		{
+			for (int a = 0; a < n ; a++) // On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RRA et PB
+			{
+				
+				if(i==1)
+					e = 0;
+				else
+					e = (n / 4) * (i - 1);
+
+				for (; e <= (n / 4) * i - 1; e+=1)
+				{
+					if (stackA[0] == sorted_list[e])
+					{	
+						push_B(stackA, stackB, sizeA, sizeB, result_to_display);
+						break;
+					}
+				}
+				reverse_rotate_A(stackA, sizeA, result_to_display);
+			}
+
+		}
+		
 		// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA
+		int b = 0;
+		for (int i = 0; n - 1 - i >= 0;i+=1)
+		{
+			while (b > 0)
+			{
+				reverse_rotate_B(stackB, sizeB, result_to_display);
+				b--;
+			}
+			while (stackB[0] != sorted_list[n - 1 - i])
+			{
+				rotate_B(stackB, sizeB, result_to_display);
+				b++;
+			}
+			push_A(stackA, stackB, sizeA, sizeB, result_to_display);
+		}
+
 	}
+
+		
+		
+	return 0;
 		
 
 

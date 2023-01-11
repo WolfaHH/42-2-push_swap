@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 	stackA = (int *)malloc(*sizeA * sizeof(int));
 	stackB = (int *)malloc(*sizeA * sizeof(int));
 	
-    
+	
 	//Fill stackA
 	for (int i = 0; i < *sizeA; i++) {
 		stackA[i] = atoi(argv[i + 1]);
@@ -154,36 +154,51 @@ void merge(int *list, int start, int mid, int end) {
 void push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display, int *sorted_list) {
 	int i = 0;
 	int j = 0;
-
-    //push_B(stackA, stackB, sizeA, sizeB, result_to_display);
+	int n = (sizeof(sorted_list) * sizeof(sorted_list[0]));
+	//push_B(stackA, stackB, sizeA, sizeB, result_to_display);
 	//push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 
-	// Check si trié
+	// Check si trié dont Cas ou n=1
+	if (sorted_list == stackA)
+		return 0;
 
-	while (i < *sizeA) {
-		if (stackA[i] == sorted_list[j]) {
-			i++;
-			j++;
-		}
-		else {
-			int k = 0;
-			while (stackA[k] != sorted_list[j]) {
-				k++;
+	if (n <= 10) // Cas ou n <= 10
+	{
+		if (n == 2) // Cas ou n=2; swap 1 time if needed
+			swap_A(stackA, sizeA, result_to_display);
+		else if (n == 3) // Cas ou n=3; 5 combinaisons possibles
+		{
+			if (stackA[0] > stackA[1] && stackA[1] < stackA[2] && stackA[0] < stackA[2]) //case1 : [2,1,3]->sa->[1,2,3].
+				swap_A(stackA, sizeA, result_to_display);
+			else if ( stackA[0] > stackA[1] && stackA[1] > stackA[2] && stackA[0] > stackA[2]) //case2 : [3,2,1]->sa->[2,3,1]->rra->[1,2,3].
+			{
+				swap_A(stackA, sizeA, result_to_display);
+				reverse_rotate_A(stackA, sizeA, result_to_display);
 			}
-            // Algorithm à écrire...
-			// Cas ou n <= 10
-				// Cas ou n=1; déja trié
-				// Cas ou n=2; swap 1 time if needed
-				// Cas ou n=3; 5 combinaisons possibles
-				// Autres cas; tri par selection, on ramène le plus petit nb par le haut ou le bas selon la distance
-			
-            // Cas ou n > 10 && A <= 100
-				// On divise sorted_list par 4 chunks
-				// On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RA et PB
-				// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA 
+			else if (stackA[0] > stackA[1] && stackA[1] < stackA[2] && stackA[0] > stackA[2]) //case3: [3,1,2]->ra->[1,2,3].
+				rotate_A(stackA, sizeA, result_to_display);
+			else if ( stackA[0] < stackA[1] && stackA[1] > stackA[2] && stackA[0] < stackA[2]) //case4 : [1,3,2]->sa->[3,1,2]->ra->[1,2,3].
+			{
+				swap_A(stackA, sizeA, result_to_display);
+				rotate_A(stackA, sizeA, result_to_display);
+			}
+			else if (stackA[0] < stackA[1] && stackA[1] > stackA[2] && stackA[0] > stackA[2]) //case5 : [2,3,1]->rra->[1,2,3].
+				reverse_rotate_A(stackA, sizeA, result_to_display);
 		}
-        i++;
+		else // Autres cas; tri par selection, on ramène le plus petit nb par le haut ou le bas selon la distance
+		{
+			
+		}
+
 	}
+	else if (n > 10 && n <= 100) // Cas ou n > 10 && A <= 100
+	{
+		// On divise sorted_list par 4 chunks
+		// On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RA et PB
+		// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA
+	}
+		
+
 
 }
 

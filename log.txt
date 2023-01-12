@@ -1,0 +1,25 @@
+
+ARGS:
+ 71 3 85 32 13
+
+OUTPUT:
+RA
+PB
+RA
+RA
+PB
+RA
+RA
+PB
+PB
+PB
+PA
+PA
+PA
+PA
+PA
+
+checker_mac: N/A
+checker_linux: N/A
+MOVES: 15
+

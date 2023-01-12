@@ -49,8 +49,8 @@ int main(int argc, char *argv[]) {
 	//Initialize stackA and stackB
 	*sizeA = argc - 1;
 	*sizeB = 0;
-	stackA = (int *)malloc(*sizeA * sizeof(int));
-	stackB = (int *)malloc(*sizeA * sizeof(int));
+	stackA = (int *)malloc(*sizeA * sizeof(int) * *sizeA);
+	stackB = (int *)malloc(*sizeA * sizeof(int) * *sizeA);
 	
 	
 	//Fill stackA
@@ -74,8 +74,10 @@ int main(int argc, char *argv[]) {
 	
 	//Display result
 	printf("%s", result_to_display);
+	
 	/*
-	printf("Number of instructions : %d\n", (int)(strlen(result_to_display) / 3));
+	printf("Number of instructions : %d\n", (int)(strlen(result_to_display) / 3.7));
+	
 	printf("Stack A : ");
 	for (int i = 0; i < *sizeA; i++) {
 		printf("%d ", stackA[i]);
@@ -84,7 +86,9 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < *sizeB; i++) {
 		printf("%d ", stackB[i]);
 	}
+	
 	printf("\n");
+	
 	*/
 
 	//Free memory
@@ -215,47 +219,144 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 		}
 
 	}
-	else if (n > 10 && n <= 100) // Cas ou n > 10 && A <= 100
+	else if (n > 10) // Cas ou n > 10 
 	{
-		
-		for (int i = 1; i <= 4;i++) // On divise sorted_list par 4 chunks
+		int nbr;
+		if (n <= 100) // && n <= 100
 		{
+			nbr = 4;
+		}
+		else 
+		{
+			nbr = 8;
+		}
+		
+		
+		for (int i = 1; i <= nbr;i++) // On divise sorted_list par 4 chunks
+		{
+			//printf("\n%d \n", (n /nbr) * i );
 			for (int a = 0; a < n ; a++) // On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RRA et PB
 			{
-				
+				int j;
 				if(i==1)
 					e = 0;
 				else
-					e = (n / 4) * (i - 1);
+					e = (n / nbr) * (i - 2);
+				if (i==nbr)
+					j = n;
+				else
+					j = (n / nbr) * i;
 
-				for (; e <= (n / 4) * i - 1; e+=1)
+				for (; e < j +1 ; e+=1)
 				{
+
 					if (stackA[0] == sorted_list[e])
 					{	
 						push_B(stackA, stackB, sizeA, sizeB, result_to_display);
-						break;
+						
 					}
 				}
 				reverse_rotate_A(stackA, sizeA, result_to_display);
 			}
 
 		}
-		
+
+		while (*sizeA > 0)
+		{
+			push_B(stackA, stackB, sizeA, sizeB, result_to_display);
+			rotate_B(stackB, sizeB, result_to_display);
+		}
 		// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA
 		int b = 0;
+
 		for (int i = 0; n - 1 - i >= 0;i+=1)
 		{
+			int k = 0;
+			while (k >= 0)
+			{
+				if (sorted_list[n - 1 - i] == stackB[k])
+				{
+					//printf("\n%d", k);
+					if (k <= (n - i)/2)
+						k = -1;
+					else
+						k = -2;
+					//printf(" %d", k);
+					break ;
+				}
+				k++;
+			}
+			
+			/*
 			while (b > 0)
 			{
 				reverse_rotate_B(stackB, sizeB, result_to_display);
 				b--;
-			}
+			}*/
+			int t=0;
+			int p = 0;
 			while (stackB[0] != sorted_list[n - 1 - i])
 			{
-				rotate_B(stackB, sizeB, result_to_display);
-				b++;
+				if (stackB[0] == sorted_list[n - 2 - i] && p == 0)
+				{
+					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
+					t += 1;
+				}
+				/*
+				else if (stackB[0] == sorted_list[n - 3 - i] && p == 0)
+				{
+					t += 2;
+				}*/
+
+				if (k == -1)
+				{
+					rotate_B(stackB, sizeB, result_to_display);
+					b++;
+				}
+				else if (k == -2)
+				{
+					reverse_rotate_B(stackB, sizeB, result_to_display);
+					b--;
+				}
 			}
 			push_A(stackA, stackB, sizeA, sizeB, result_to_display);
+			/*
+			if (t == 3 || p == 1)
+			{
+				p = 0;
+				if (stackA[0] > stackA[1] && stackA[1] < stackA[2] && stackA[0] < stackA[2]) //case1 : [2,1,3]->sa->[1,2,3].
+					swap_A(stackA, sizeA, result_to_display);
+				else if ( stackA[0] > stackA[1] && stackA[1] > stackA[2] && stackA[0] > stackA[2]) //case2 : [3,2,1]->sa->[2,3,1]->rra->[1,2,3].
+				{
+					swap_A(stackA, sizeA, result_to_display);
+					reverse_rotate_A(stackA, sizeA, result_to_display);
+				}
+				else if (stackA[0] > stackA[1] && stackA[1] < stackA[2] && stackA[0] > stackA[2]) //case3: [3,1,2]->ra->[1,2,3].
+					rotate_A(stackA, sizeA, result_to_display);
+				else if ( stackA[0] < stackA[1] && stackA[1] > stackA[2] && stackA[0] < stackA[2]) //case4 : [1,3,2]->sa->[3,1,2]->ra->[1,2,3].
+				{
+					swap_A(stackA, sizeA, result_to_display);
+					rotate_A(stackA, sizeA, result_to_display);
+				}
+				else if (stackA[0] < stackA[1] && stackA[1] > stackA[2] && stackA[0] > stackA[2]) //case5 : [2,3,1]->rra->[1,2,3].
+					reverse_rotate_A(stackA, sizeA, result_to_display);				
+			}
+			*/
+			if (t ==1)
+			{
+				swap_A(stackA, sizeA, result_to_display);
+				i++;
+			}
+			/*
+			if (t==3)
+				i +=2 ;
+			if (t==2)
+			{
+				push_A(stackA, stackB, sizeA, sizeB, result_to_display);
+				p = 1;
+			}*/
+				
+			
 		}
 
 	}
@@ -273,7 +374,7 @@ void swap_A(int *stackA, int *sizeA, char *result_to_display) {
 	int temp = stackA[0];
 	stackA[0] = stackA[1];
 	stackA[1] = temp;
-	strcat(result_to_display, "SA\n");
+	strcat(result_to_display, "sa\n");
 }
 
 //Swap top two numbers in stack B
@@ -281,14 +382,14 @@ void swap_B(int *stackB, int *sizeB, char *result_to_display) {
 	int temp = stackB[0];
 	stackB[0] = stackB[1];
 	stackB[1] = temp;
-	strcat(result_to_display, "SB\n");
+	strcat(result_to_display, "sb\n");
 }
 
 //Run SA and SB at the same time
 void swap_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display) {
 	swap_A(stackA, sizeA, result_to_display);
 	swap_B(stackB, sizeB, result_to_display);
-	strcat(result_to_display, "SS\n");
+	strcat(result_to_display, "ss\n");
 }
 
 //Top number goes to bottom of Stack A
@@ -298,7 +399,7 @@ void rotate_A(int *stackA, int *sizeA, char *result_to_display) {
 		stackA[i] = stackA[i + 1];
 	}
 	stackA[*sizeA - 1] = temp;
-	strcat(result_to_display, "RA\n");
+	strcat(result_to_display, "ra\n");
 }
 
 //Top number goes to bottom of Stack B
@@ -308,14 +409,14 @@ void rotate_B(int *stackB, int *sizeB, char *result_to_display) {
 		stackB[i] = stackB[i + 1];
 	}
 	stackB[*sizeB - 1] = temp;
-	strcat(result_to_display, "RB\n");
+	strcat(result_to_display, "rb\n");
 }
 
 //Run RA and RB at the same time
 void rotate_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display) {
 	rotate_A(stackA, sizeA, result_to_display);
 	rotate_B(stackB, sizeB, result_to_display);
-	strcat(result_to_display, "RR\n");
+	strcat(result_to_display, "rr\n");
 }
 
 //bottom number goes to top of Stack A
@@ -325,7 +426,8 @@ void reverse_rotate_A(int *stackA, int *sizeA, char *result_to_display) {
 		stackA[i] = stackA[i - 1];
 	}
 	stackA[0] = temp;
-	strcat(result_to_display, "RRA\n");
+	strcat(result_to_display, "rra\n");
+	
 }
 
 //bottom number goes to top of Stack B
@@ -335,14 +437,14 @@ void reverse_rotate_B(int *stackB, int *sizeB, char *result_to_display) {
 		stackB[i] = stackB[i - 1];
 	}
 	stackB[0] = temp;
-	strcat(result_to_display, "RRB\n");
+	strcat(result_to_display, "rrb\n");
 }
 
 //Run RRA and RRB at the same time
 void reverse_rotate_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display) {
 	reverse_rotate_A(stackA, sizeA, result_to_display);
 	reverse_rotate_B(stackB, sizeB, result_to_display);
-	strcat(result_to_display, "RRR\n");
+	strcat(result_to_display, "rrr\n");
 }
 
 //Send top of B to top of A
@@ -358,7 +460,7 @@ void push_A(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_di
 		for (int i = 0; i < *sizeB; i++) {
 			stackB[i] = stackB[i + 1];
 		}
-		strcat(result_to_display, "PA\n");		
+		strcat(result_to_display, "pa\n");		
 	}
 
 }
@@ -376,7 +478,7 @@ void push_B(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_di
 		for (int i = 0; i < *sizeA; i++) {
 			stackA[i] = stackA[i + 1];
 		}
-		strcat(result_to_display, "PB\n");
+		strcat(result_to_display, "pb\n");
 	}
 
 }

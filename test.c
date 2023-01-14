@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <limits.h>
 
-int* best_combination(int k1, int k2, int k3, int* stackB, int size);
+# include "push_swap.h"
 
 int find_element_and_move_to_top(int* stackB, int size, int element, int operation);
 int find_element_position(int* stackB, int size, int element);
 int move_to_top(int* stackB, int size, int position, int operation);
 
 
-int* best_combination(int k1, int k2, int k3, int* stackB, int size) {
+int *best_combination(int k1, int k2, int k3, int* stackB, int size) {
     int i, j, k;
     int best_moves = INT_MAX;
     int current_moves;
-    int best_order[3] = {-1, -1, -1};
+    static int best_order[3] = {-1, -1, -1};
 
     // Try all possible combinations of searching for k1, k2, k3
     for (i = 0; i < 3; i++) {
@@ -88,7 +88,7 @@ int move_to_top(int* stackB, int size, int position, int operation) {
 
 
 
-
+/*
 int main() {
     int k1 = 5, k2 = 3, k3 = 9;
     int stackB[] = {1, 2, 5, 8, 3, 6, 4, 7, 9};
@@ -99,3 +99,4 @@ int main() {
 
     return 0;
 }
+*/

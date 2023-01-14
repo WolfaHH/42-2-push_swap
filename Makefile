@@ -3,6 +3,7 @@
 NAME = push_swap
 
 SRCS		= 	push_swap.c \
+				test.c
 
 OBJS			= $(SRCS:.c=.o)
 CC				= clang

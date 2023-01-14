@@ -1,25 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
-//Prototypes
-void merge_sort(int *list, int start, int end);
-void merge(int *list, int start, int mid, int end);
-int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display, int *sorted_list);
-void swap_A(int *stackA, int *sizeA, char *result_to_display);
-void swap_B(int *stackB, int *sizeB, char *result_to_display);
-void swap_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display);
-void rotate_A(int *stackA, int *sizeA, char *result_to_display);
-void rotate_B(int *stackB, int *sizeB, char *result_to_display);
-void rotate_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display);
-void reverse_rotate_A(int *stackA, int *sizeA, char *result_to_display);
-void reverse_rotate_B(int *stackB, int *sizeB, char *result_to_display);
-void reverse_rotate_both(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display);
-void push_A(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display);
-void push_B(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_display);
 
-int* best_combination(int k1, int k2, int k3, int* stackB, int size);
-
+# include "push_swap.h"
 
 int main(int argc, char *argv[]) {
 	int *stackA, *stackB, sizeA[1], sizeB[1];
@@ -79,7 +60,7 @@ int main(int argc, char *argv[]) {
 	//printf("%s", result_to_display);
 	
 	
-	printf("\nNumber of instructions : %d\n", (int)(strlen(result_to_display) / 3.7));
+	printf("\nNumber of instructions : %d\n", (int)(strlen(result_to_display) / 3.76));
 	
 	printf("Stack A : ");
 	for (int i = 0; i < *sizeA; i++) {
@@ -91,6 +72,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	printf("\n");
+	
 	
 	
 
@@ -224,6 +206,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 	}
 	else if (n > 10) // Cas ou n > 10 
 	{
+		
 		int nbr;
 		if (n <= 100) // && n <= 100
 		{
@@ -270,52 +253,70 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 			rotate_B(stackB, sizeB, result_to_display);
 		}
 		// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA
-		int b = 0;
-
+	
+		printf("\nFlag1 : %d\n", (int)(strlen(result_to_display) / 3.76));
 		for (int i = 0; n - 1 - i >= 0;i+=1)
 		{
 			int k;
 			int p = 0;
 
+			// On détermine quel ordre est le plus opti pour les 3 nombres
 			int k1 = sorted_list[n - 1 - i], k2 = sorted_list[n - 2 - i], k3 = sorted_list[n - 3 - i];
-    		int* best_order = best_combination(k1, k2, k3, stackB, *sizeB);
-			
+    		int *best_order = best_combination(k1, k2, k3, stackB, *sizeB);
 
 
+			k = k_k(stackB, sorted_list, n, i, (best_order[0] + 1), sizeB); //
 			
+			//printf("\nFlag2 : %d\n", (int)(strlen(result_to_display) / 3.76));
+
+			// On récupère les 3 plus grand nombre dans Stack B
+			if (i == 27)
+			{
+				printf("\nStack Be : ");
+			for (int i = 0; i < *sizeB; i++) {
+				printf("%d ", stackB[i]);
+			}
+			}
 			while (p < 3)
 			{
-				if (stackB[0] == sorted_list[n - 1 - i])
+				if (stackB[0] == sorted_list[n - (best_order[0] + 1) - i]) //
 				{
 					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
-					p += 1;
-				}
-				else if (stackB[0] == sorted_list[n - 2 - i])
-				{
-					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
+					k = k_k(stackB, sorted_list, n, i, (best_order[1] + 1), sizeB );
 					p += 1;
 				}
 				
-				else if (stackB[0] == sorted_list[n - 3 - i])
+				else if ((stackB[0] == sorted_list[n - (best_order[1] + 1) - i] && p == 1) || (stackB[0] == sorted_list[n - (best_order[1] + 1) - i] && i == 27))
+				{
+					if (i ==27)
+						printf("0:%d%d%d\n", k1, k2, k3);
+					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
+					k = k_k(stackB, sorted_list, n, i, (best_order[2] + 1) , sizeB);
+					p += 1;
+				}
+				
+				else if (stackB[0] == sorted_list[n - (best_order[2] + 1) - i]&& p == 2)
 				{
 					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 					p += 1;
 				}
-				
+			
 				if (k == -1)
 				{
 					rotate_B(stackB, sizeB, result_to_display);
-					b++;
 				}
 				else if (k == -2)
 				{
 					reverse_rotate_B(stackB, sizeB, result_to_display);
-					b--;
+				}
+				else if (k == -3)
+				{
+					rotate_B(stackB, sizeB, result_to_display);
 				}
 			}
 			i+=2;
-
 			
+			// On trie dans stack A les 3 nombres push
 			
 			if (stackA[0] > stackA[1] && stackA[1] < stackA[2] && stackA[0] < stackA[2]) //case1 : [2,1,3]->sa->[1,2,3].
 				swap_A(stackA, sizeA, result_to_display);
@@ -348,6 +349,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 				swap_A(stackA, sizeA, result_to_display);
 			}
 			
+			
 		}
 
 	}
@@ -363,7 +365,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 //Swap top two numbers in stack A
 void swap_A(int *stackA, int *sizeA, char *result_to_display) {
 	int temp = stackA[0];
-	stackA[0] = stackA[1];
+	stackA[0] = stackA[1]; 
 	stackA[1] = temp;
 	strcat(result_to_display, "sa\n");
 }
@@ -474,10 +476,10 @@ void push_B(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_di
 
 }
 
-int k_k(int *stackB, int *sorted_list, int n, int i, int e)
+int k_k(int *stackB, int *sorted_list, int n, int i, int e, int *sizeB)
 {
 	int k = 0;
-	while (k >= 0)
+	while (k >= 0 && k < 200)
 	{
 		if (sorted_list[n - e - i] == stackB[k])
 		{
@@ -491,6 +493,15 @@ int k_k(int *stackB, int *sorted_list, int n, int i, int e)
 		}
 		k++;
 	}
-
+	if (k != -1 && k != -2)
+		{
+			printf("\nStack B : ");
+			for (int i = 0; i < *sizeB; i++) {
+				printf("%d ", stackB[i]);
+			}
+			printf(" -- %d \n", sorted_list[n - e - i]);
+			return -3;
+		}
+		
 	return k;
 }

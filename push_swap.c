@@ -270,33 +270,45 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 			//printf("\nFlag2 : %d\n", (int)(strlen(result_to_display) / 3.76));
 
 			// On récupère les 3 plus grand nombre dans Stack B
-			if (i == 27)
+			if (i == 18)
 			{
-				printf("\nStack Be : ");
+				printf("ks: %d %d %d\n", k1, k2, k3);
+				printf("best_order: %d %d %d\n", best_order[0], best_order[1], best_order[2]);	
+				printf("\nStack orignal : ");
 			for (int i = 0; i < *sizeB; i++) {
 				printf("%d ", stackB[i]);
 			}
+			printf("\n");
 			}
+
 			while (p < 3)
 			{
 				if (stackB[0] == sorted_list[n - (best_order[0] + 1) - i]) //
 				{
+					if (i ==18)
+					{		
+						printf("\nStack 1 : ");for (int i = 0; i < *sizeB; i++){printf("%d ", stackB[i]);}
+						printf("\n");
+					}
 					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 					k = k_k(stackB, sorted_list, n, i, (best_order[1] + 1), sizeB );
 					p += 1;
 				}
 				
-				else if ((stackB[0] == sorted_list[n - (best_order[1] + 1) - i] && p == 1) || (stackB[0] == sorted_list[n - (best_order[1] + 1) - i] && i == 27))
+				else if (stackB[0] == sorted_list[n - (best_order[1] + 1) - i])
 				{
-					if (i ==27)
-						printf("0:%d%d%d\n", k1, k2, k3);
+					if (i ==18)
+					{
+						printf("\nStack 2 : ");for (int i = 0; i < *sizeB; i++){printf("%d ", stackB[i]);}printf("\n");}
 					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 					k = k_k(stackB, sorted_list, n, i, (best_order[2] + 1) , sizeB);
 					p += 1;
 				}
-				
-				else if (stackB[0] == sorted_list[n - (best_order[2] + 1) - i]&& p == 2)
+				else if (stackB[0] == sorted_list[n - (best_order[2] + 1) - i])
 				{
+					if (i ==18)
+					{
+						printf("\nStack 3 : ");for (int i = 0; i < *sizeB; i++){printf("%d ", stackB[i]);}printf("\n");}
 					push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 					p += 1;
 				}
@@ -495,11 +507,7 @@ int k_k(int *stackB, int *sorted_list, int n, int i, int e, int *sizeB)
 	}
 	if (k != -1 && k != -2)
 		{
-			printf("\nStack B : ");
-			for (int i = 0; i < *sizeB; i++) {
-				printf("%d ", stackB[i]);
-			}
-			printf(" -- %d \n", sorted_list[n - e - i]);
+			//printf(" -- %d \n", sorted_list[n - e - i]);
 			return -3;
 		}
 		

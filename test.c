@@ -20,12 +20,27 @@ int *best_combination(int k1, int k2, int k3, int* stackB, int size, int *sorted
     }
 
 
+    if (k1 == 94)
+    {
+        //printf("chut%d ", sorted_list[n - 0 - 1]);
+    }
+
     if ((t = pepe(stackK, k1, k2, k3, sizeK, sorted_list, n, 0, 1, 2)) < distance){distance = t;order[0] =0;order[1] =1;order[2] =2;}
     if ((t = pepe(stackK, k1, k3, k2, sizeK, sorted_list, n, 0, 2, 1)) < distance){distance = t;order[0] =0;order[1] =2;order[2] =1;}
     if ((t = pepe(stackK, k2, k1, k3, sizeK, sorted_list, n, 1, 0, 2)) < distance){distance = t;order[0] =1;order[1] =0;order[2] =2;}
     if ((t = pepe(stackK, k2, k3, k1, sizeK, sorted_list, n, 1, 2, 0)) < distance){distance = t;order[0] =1;order[1] =2;order[2] =0;}
     if ((t = pepe(stackK, k3, k1, k2, sizeK, sorted_list, n, 2, 0, 1)) < distance){distance = t;order[0] =2;order[1] =0;order[2] =1;}
     if ((t = pepe(stackK, k3, k2, k1, sizeK, sorted_list, n, 2, 1, 0)) < distance){distance = t;order[0] =2;order[1] =1;order[2] =0;}
+
+    if (k1 == 19){
+    printf("\norder : %d %d %d    ", order[0], order[1], order[2]);
+    printf("%d %d %d", k1, k2, k3);
+    }    
+
+    
+
+    //printf("\n");
+    
 
     return order;
 
@@ -35,25 +50,55 @@ int pepe(int *stackK, int k1, int k2, int k3, int *sizeK, int *sorted_list, int 
 {
     int p = 0;
     int d = 0;
-    int k = k_k(stackK, sorted_list, n, e1, 1, sizeK); 
+    int k = k_k(stackK, sorted_list, n,1,e1, sizeK); 
+    int b = 0;
+    //printf("k: %d ", k);
+    //printf("\n");
+    //printf("k: %d ", k);
     while(p < 3)
     {
-        if (stackK[0] == k1 && p++ == 0)
-            k = k_k(stackK, sorted_list, n, e1, 1, sizeK);
-        else if (stackK[0] == k2 && p++ == 1)
-            k = k_k(stackK, sorted_list, n, e1, 1, sizeK);
-        else if (stackK[0] == k3 && p == 2)
+        if (stackK[0] == k1 && p == 0)
+        {
+            k = k_k(stackK, sorted_list, n, 1, e2, sizeK);
+            //printf("k: %d ", k);
             p++;
+        }         
+        else if (stackK[0] == k2 && p == 1)
+        {
+            k = k_k(stackK, sorted_list, n, 1, e3, sizeK);
+            //printf("k: %d ", k);
+            p++;
+        }
+        else if (stackK[0] == k3 && p == 2)
+        {
+            p++;
+        }
+        
         else if (k == -2)
         {
             reverse_rotate_K(stackK, sizeK);
+            b--;
         }
         else if (k == -1)
         {
             rotate_K(stackK, sizeK);
+            b++;
         }
         d++;
     }
+    
+    while (b < 0)
+    {
+        rotate_K(stackK, sizeK);
+        b++;
+    }
+        
+    while (b > 0)
+    {
+        reverse_rotate_K(stackK, sizeK);
+        b--;
+    }
+    
     return d;
 }
 

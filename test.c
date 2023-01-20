@@ -8,11 +8,11 @@
 int *best_combination(int k1, int k2, int k3, int* stackB, int size, int *sorted_list, int n){
 
 
-    int *stackK = malloc(900000000);
+    int *stackK = malloc(9000000);
     int sizeK[1];  
     *sizeK = size;
     static int order[3] = {0, 0, 0};
-    int distance = 900000000;
+    int distance = 9000000;
     int t;
 
     for (int i = 0; i < *sizeK; i++) {
@@ -32,16 +32,19 @@ int *best_combination(int k1, int k2, int k3, int* stackB, int size, int *sorted
     if ((t = pepe(stackK, k3, k1, k2, sizeK, sorted_list, n, 2, 0, 1)) < distance){distance = t;order[0] =2;order[1] =0;order[2] =1;}
     if ((t = pepe(stackK, k3, k2, k1, sizeK, sorted_list, n, 2, 1, 0)) < distance){distance = t;order[0] =2;order[1] =1;order[2] =0;}
 
+
+    /*
     if (k1 == 19){
     printf("\norder : %d %d %d    ", order[0], order[1], order[2]);
     printf("%d %d %d", k1, k2, k3);
-    }    
+    }    */
 
     
 
     //printf("\n");
     
 
+    free(stackK);
     return order;
 
 }

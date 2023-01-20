@@ -57,9 +57,9 @@ int main(int argc, char *argv[]) {
 	push_swap(stackA, stackB, sizeA, sizeB, result_to_display, sorted_list);
 	
 	//Display result
-	//printf("%s", result_to_display);
+	printf("%s", result_to_display);
 	
-	
+	/*
 	printf("\nNumber of instructions : %d\n", (int)(strlen(result_to_display) / 3.76));
 	
 	printf("Stack A : ");
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
 	}
 	
 	printf("\n");
-	
+	*/
 	
 	
 
@@ -241,7 +241,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 						push_B(stackA, stackB, sizeA, sizeB, result_to_display);						
 					}
 				}
-				reverse_rotate_A(stackA, sizeA, result_to_display);
+				rotate_A(stackA, sizeA, result_to_display);
 			}
 
 		}
@@ -280,6 +280,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
     		
 			//i+=2;
 
+			/*
 			if (i == 81)
 			{
 				printf("\n%dFlag1 : %d\n",i, (int)(strlen(result_to_display) / 3.76));
@@ -288,7 +289,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 					printf("%d ", stackB[i]);
 				}
 				printf("\n\n");
-			}
+			}*/
 			int *best_order = best_combination(k1, k2, k3, stackB, *sizeB, sorted_list, n - i);
 			
 			//printf("best_order: %d %d %d\n", best_order[0], best_order[1], best_order[2]);
@@ -297,7 +298,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 			
 			k = k_k(stackB, sorted_list, n, i, (best_order[0] + 1), sizeB); //
 			
-			//printf("\nFlag2 : %d\n", (int)(strlen(result_to_display) / 3.76));
+			
 
 			// On récupère les 3 plus grand nombre dans Stack B
 			/*
@@ -315,7 +316,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 			
 			while (p < 3)
 			{
-							if (i == 81){printf("\nStack B :%d     ", p);for (int i = 0; i < *sizeB; i++) {printf("%d ", stackB[i]);}printf("\n\n");}
+				//if (i == 81){printf("\nStack B :%d     ", p);for (int i = 0; i < *sizeB; i++) {printf("%d ", stackB[i]);}printf("\n\n");}
 				if (stackB[0] == sorted_list[n - (best_order[0] + 1) - i]) //
 				{/*
 					if (i ==18)
@@ -393,6 +394,8 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 				reverse_rotate_A(stackA, sizeA, result_to_display);
 				swap_A(stackA, sizeA, result_to_display);
 			}
+
+			//printf("\nFlag2 : %d\n", (int)(strlen(result_to_display) / 3.76));
 			
 		
 		}

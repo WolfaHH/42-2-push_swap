@@ -58,8 +58,8 @@ int main(int argc, char *argv[]) {
 	
 	//Display result
 	printf("%s", result_to_display);
-	
 	/*
+	
 	printf("\nNumber of instructions : %d\n", (int)(strlen(result_to_display) / 3.76));
 	
 	printf("Stack A : ");
@@ -71,8 +71,8 @@ int main(int argc, char *argv[]) {
 		printf("%d ", stackB[i]);
 	}
 	
-	printf("\n");
-	*/
+	printf("\n");*/
+	
 	
 	
 
@@ -147,9 +147,6 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 	int j = 0;
 	int e;
 	int n = *sizeA;
-	//push_B(stackA, stackB, sizeA, sizeB, result_to_display);
-	//push_A(stackA, stackB, sizeA, sizeB, result_to_display);
-
 	// Check si trié dont Cas ou n=1
 	for (int i = 0; i <= *sizeA;i++)
 	{
@@ -158,7 +155,6 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 		if (i == *sizeA)
 			return 0;
 	}
-
 	if (n <= 10) // Cas ou n <= 10
 	{
 		
@@ -216,40 +212,35 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 		{
 			nbr = 8;
 		}
-		
-		
 		for (int i = 1; i <= nbr;i++) // On divise sorted_list par 4 chunks
 		{
 			//printf("\n%d \n", (n /nbr) * i );
-			for (int a = 0; a < n ; a++) // On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RRA et PB
+			while (*sizeA > n - ((n / nbr) * i)+5) // On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RRA et PB
 			{
 				int j;
+				int e;
 				if(i==1)
 					e = 0;
 				else
-					e = (n / nbr) * (i - 2);
+					e = (n / nbr) * (i - 1);
 				if (i==nbr)
 					j = n;
 				else
 					j = (n / nbr) * i;
 
-				for (; e < j +1 ; e+=1)
+				for (; e < j ; e++)
 				{
-
 					if (stackA[0] == sorted_list[e])
-					{	
-						push_B(stackA, stackB, sizeA, sizeB, result_to_display);						
+					{
+						push_B(stackA, stackB, sizeA, sizeB, result_to_display);					
 					}
 				}
 				rotate_A(stackA, sizeA, result_to_display);
 			}
-
 		}
-
 		while (*sizeA > 0)
 		{
 			push_B(stackA, stackB, sizeA, sizeB, result_to_display);
-			rotate_B(stackB, sizeB, result_to_display);
 		}
 		// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA
 	
@@ -272,48 +263,10 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 				push_A(stackA, stackB, sizeA, sizeB, result_to_display);
 				break ;
 			}
-			// On détermine quel ordre est le plus opti pour les 3 nombres
 
-			
-			
-			
-    		
-			//i+=2;
-
-			/*
-			if (i == 81)
-			{
-				printf("\n%dFlag1 : %d\n",i, (int)(strlen(result_to_display) / 3.76));
-				printf("\nStack B : ");
-				for (int i = 0; i < *sizeB; i++) {
-					printf("%d ", stackB[i]);
-				}
-				printf("\n\n");
-			}*/
 			int *best_order = best_combination(k1, k2, k3, stackB, *sizeB, sorted_list, n - i);
-			
 			//printf("best_order: %d %d %d\n", best_order[0], best_order[1], best_order[2]);
-
-			
-			
 			k = k_k(stackB, sorted_list, n, i, (best_order[0] + 1), sizeB); //
-			
-			
-
-			// On récupère les 3 plus grand nombre dans Stack B
-			/*
-			if (i == 18)
-			{
-				printf("ks: %d %d %d\n", k1, k2, k3); 
-				printf("best_order: %d %d %d\n", best_order[0], best_order[1], best_order[2]);
-				printf("\nStack orignal : ");
-			for (int i = 0; i < *sizeB; i++) {
-				printf("%d ", stackB[i]);
-			}
-			printf("\n");
-			}*/
-
-			
 			while (p < 3)
 			{
 				//if (i == 81){printf("\nStack B :%d     ", p);for (int i = 0; i < *sizeB; i++) {printf("%d ", stackB[i]);}printf("\n\n");}
@@ -361,9 +314,7 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 				}
 			}
 			i+=2;
-			
 			// On trie dans stack A les 3 nombres push
-			
 			if (stackA[0] > stackA[1] && stackA[1] < stackA[2] && stackA[0] < stackA[2]) //case1 : [2,1,3]->sa->[1,2,3].
 				swap_A(stackA, sizeA, result_to_display);
 			else if ( stackA[0] > stackA[1] && stackA[1] > stackA[2] && stackA[0] > stackA[2]) //case2 : [3,2,1]->sa->[2,3,1]->ra->[3,1,2]->sa->[1,3,2]->rra->[2,1,3]->sa->[1,2,3].
@@ -394,20 +345,10 @@ int push_swap(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_
 				reverse_rotate_A(stackA, sizeA, result_to_display);
 				swap_A(stackA, sizeA, result_to_display);
 			}
-
 			//printf("\nFlag2 : %d\n", (int)(strlen(result_to_display) / 3.76));
-			
-		
 		}
-		
 	}
-
-		
-		
 	return 0;
-		
-
-
 }
 
 //Swap top two numbers in stack A
@@ -503,7 +444,6 @@ void push_A(int *stackA, int *stackB, int *sizeA, int *sizeB, char *result_to_di
 		}
 		strcat(result_to_display, "pa\n");		
 	}
-
 }
 
 //Send top of A to top of B

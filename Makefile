@@ -3,7 +3,10 @@
 NAME = push_swap
 
 SRCS		= 	push_swap.c \
-				test.c
+				main.c \
+				push_swap_combinations.c \
+				push_swap_merge.c \
+				push_swap_utils.c \
 
 OBJS			= $(SRCS:.c=.o)
 CC				= clang

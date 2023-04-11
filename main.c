@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
 	merge_sort(sorted_list, 0, *sizeA - 1);
 	
 	//Initialize result_to_display
-	result_to_display = (char *)malloc(*sizeA * 10 * sizeof(char));
+	result_to_display = (char *)malloc(999999);
 	strcpy(result_to_display, "");
 
 	pushSwap.stackA = stackA;
@@ -60,8 +60,8 @@ int main(int argc, char *argv[]) {
 
 	//Run push_swap
 	push_swap();
-	//printf("%s", pushSwap.result_to_display);
-	
+	printf("%s", pushSwap.result_to_display);
+	/*
 	//Display result
     printf("\n");
     printf("stackA: ");
@@ -84,7 +84,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < pushSwap.sizeA + pushSwap.sizeB; i++) {
         printf("%d ", pushSwap.sorted_list[i]);
     }
-    printf("\n");
+    printf("\n");*/
 	
 	//Free memory
 	free(stackA);

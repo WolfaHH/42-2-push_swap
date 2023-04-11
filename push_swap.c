@@ -185,6 +185,13 @@ void main_algorithm_2()
 		swap_A();
 	}
 }
+int len(const char *str) {
+    int length = 0;
+    while (str[length] != '\0') {
+        length++;
+    }
+    return length;
+}
 void main_algorithm(int n)
 {
 	// On ramène sur A le plus grand nombre au plus petit nombre. On cherche par chunk avec RB,RRB et PA
@@ -192,17 +199,18 @@ void main_algorithm(int n)
 	int k1;
 	int k2;
 	int k3;
-
+	int *best_order;
 	while (n - 1 - i >= 0)
 	{
 		k1 = pushSwap.sorted_list[n - 1 - i];
 		k2 = pushSwap.sorted_list[n - 2 - i];
 		k3 = pushSwap.sorted_list[n - 3 - i];
 		
-		int *best_order = best_combination(k1, k2, k3, n - i, pushSwap.sizeB);
-	
+		best_order = best_combination(k1, k2, k3, n - i, pushSwap.sizeB);
+		
 		if (n - i == 2)
 		{
+			push_A();
 			push_A();
 			break;
 		}
@@ -225,11 +233,14 @@ void push_swap_big(int n)
 		nbr = 4;
 	else
 		nbr = 8;
+	
 	handle_4_chunks_division(n, nbr);
+	
 	while (pushSwap.sizeA > 0)
 	{
 		push_B();
 	}
+
 	main_algorithm(n);
 }
 int push_swap()

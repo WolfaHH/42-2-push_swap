@@ -1,11 +1,26 @@
 # include "push_swap.h"
+#include <stdio.h>
+
+void ft_strcat(char *dest, const char *src) {
+    while (*dest) {
+        dest++; // Find the end of the destination string
+    }
+
+    while (*src) {
+        *dest = *src; // Copy characters from the source string to the destination string
+        dest++;
+        src++;
+    }
+
+    *dest = '\0'; // Add a null terminator at the end of the concatenated string
+}
 
 //Swap top two numbers in stack A
 void swap_A() {
 	int temp = pushSwap.stackA[0];
 	pushSwap.stackA[0] = pushSwap.stackA[1]; 
 	pushSwap.stackA[1] = temp;
-	strcat(pushSwap.result_to_display, "sa\n");
+	ft_strcat(pushSwap.result_to_display, "sa\n");
 }
 
 //Swap top two numbers in stack B
@@ -13,14 +28,14 @@ void swap_B() {
 	int temp = pushSwap.stackB[0];
 	pushSwap.stackB[0] = pushSwap.stackB[1];
 	pushSwap.stackB[1] = temp;
-	strcat(pushSwap.result_to_display, "sb\n");
+	ft_strcat(pushSwap.result_to_display, "sb\n");
 }
 
 //Run SA and SB at the same time
 void swap_both() {
 	swap_A();
 	swap_B();
-	strcat(pushSwap.result_to_display, "ss\n");
+	ft_strcat(pushSwap.result_to_display, "ss\n");
 }
 
 //Top number goes to bottom of Stack A
@@ -32,7 +47,7 @@ void rotate_A() {
         i++;
     }
     pushSwap.stackA[pushSwap.sizeA - 1] = temp;
-    strcat(pushSwap.result_to_display, "ra\n");
+    ft_strcat(pushSwap.result_to_display, "ra\n");
 }
 
 //Top number goes to bottom of Stack B
@@ -44,14 +59,14 @@ void rotate_B() {
         i++;
     }
     pushSwap.stackB[pushSwap.sizeB - 1] = temp;
-    strcat(pushSwap.result_to_display, "rb\n");
+    ft_strcat(pushSwap.result_to_display, "rb\n");
 }
 
 //Run RA and RB at the same time
 void rotate_both() {
 	rotate_A();
 	rotate_B();
-	strcat(pushSwap.result_to_display, "rr\n");
+	ft_strcat(pushSwap.result_to_display, "rr\n");
 }
 
 //bottom number goes to top of Stack A
@@ -63,7 +78,7 @@ void reverse_rotate_A() {
         i--;
     }
     pushSwap.stackA[0] = temp;
-    strcat(pushSwap.result_to_display, "rra\n");
+    ft_strcat(pushSwap.result_to_display, "rra\n");
 }
 
 //bottom number goes to top of Stack B
@@ -75,14 +90,14 @@ void reverse_rotate_B() {
         i--;
     }
     pushSwap.stackB[0] = temp;
-    strcat(pushSwap.result_to_display, "rrb\n");
+    ft_strcat(pushSwap.result_to_display, "rrb\n");
 }
 
 //Run RRA and RRB at the same time
 void reverse_rotate_both() {
 	reverse_rotate_A();
 	reverse_rotate_B();
-	strcat(pushSwap.result_to_display, "rrr\n");
+	ft_strcat(pushSwap.result_to_display, "rrr\n");
 }
 
 //Send top of B to top of A
@@ -102,7 +117,7 @@ void push_A() {
             pushSwap.stackB[i] = pushSwap.stackB[i + 1];
             i++;
         }
-        strcat(pushSwap.result_to_display, "pa\n");
+        ft_strcat(pushSwap.result_to_display, "pa\n");
     }
 }
 
@@ -123,7 +138,7 @@ void push_B() {
             pushSwap.stackA[i] = pushSwap.stackA[i + 1];
             i++;
         }
-        strcat(pushSwap.result_to_display, "pb\n");
+        ft_strcat(pushSwap.result_to_display, "pb\n");
     }
 }
 

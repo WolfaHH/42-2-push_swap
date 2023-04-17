@@ -42,5 +42,12 @@ int k_k_k(int *stackB, int *sorted_list, int n, int i, int e, int *sizeB);
 int pepe(int *stackK, int k1, int k2, int k3, int *sizeK, int n, int e1, int e2, int e3);
 void push_swap_multi(int n, int nbr, int *stackA, int sizeA);
 void sort_five_elements();
+char **ft_split(const char *s, char c);
+int	superchecker(char *argv[], int argc);
+void	instantiation(int argc);
+bool	is_integer(const char *str);
+bool	has_duplicates(int argc, char *argv[]);
+bool	is_valid_input(int argc, char *argv[]);
+bool	is_second_format(int argc, char *argv[]);
 
 #endif

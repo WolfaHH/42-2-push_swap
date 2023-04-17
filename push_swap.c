@@ -1,63 +1,93 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 22:10:00 by ngodard           #+#    #+#             */
+/*   Updated: 2023/04/17 22:36:48 by ngodard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "push_swap.h"
 
-# include "push_swap.h"
-
-/////// CASES INFERIEUR A 10 ///////
-int check_sorted()
+int	check_sorted(void)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i <= pushSwap.sizeA)
 	{
 		if (pushSwap.sorted_list[i] != pushSwap.stackA[i])
 		{
-			break;
+			break ;
 		}
 		if (i == pushSwap.sizeA)
 		{
-			return 0;
+			return (0);
 		}
 		i++;
 	}
-	return 1;
+	return (1);
 }
 
-void handle_case_3()
+void	handle_case_3_2(void)
 {
-	if (pushSwap.stackA[0] > pushSwap.stackA[1] && pushSwap.stackA[1] < pushSwap.stackA[2] && pushSwap.stackA[0] < pushSwap.stackA[2])
-	{ // case1 : [2,1,3]->sa->[1,2,3].
-		swap_A();
-	}
-	else if (pushSwap.stackA[0] > pushSwap.stackA[1] && pushSwap.stackA[1] > pushSwap.stackA[2] && pushSwap.stackA[0] > pushSwap.stackA[2])
-	{ // case2 : [3,2,1]->sa->[2,3,1]->rra->[1,2,3].
-		swap_A();
-		reverse_rotate_A();
-	}
-	else if (pushSwap.stackA[0] > pushSwap.stackA[1] && pushSwap.stackA[1] < pushSwap.stackA[2] && pushSwap.stackA[0] > pushSwap.stackA[2])
-	{ // case3: [3,1,2]->ra->[1,2,3].
-		rotate_A();
-	}
-	else if (pushSwap.stackA[0] < pushSwap.stackA[1] && pushSwap.stackA[1] > pushSwap.stackA[2] && pushSwap.stackA[0] < pushSwap.stackA[2])
-	{ // case4 : [1,3,2]->sa->[3,1,2]->ra->[1,2,3].
+	if (pushSwap.stackA[0] < pushSwap.stackA[1]
+		&& pushSwap.stackA[1] > pushSwap.stackA[2]
+		&& pushSwap.stackA[0] < pushSwap.stackA[2])
+	{
 		swap_A();
 		rotate_A();
 	}
-	else if (pushSwap.stackA[0] < pushSwap.stackA[1] && pushSwap.stackA[1] > pushSwap.stackA[2] && pushSwap.stackA[0] > pushSwap.stackA[2])
-	{ // case5 : [2,3,1]->rra->[1,2,3].
+	else if (pushSwap.stackA[0] < pushSwap.stackA[1]
+		&& pushSwap.stackA[1] > pushSwap.stackA[2]
+		&& pushSwap.stackA[0] > pushSwap.stackA[2])
+	{
 		reverse_rotate_A();
+	}	
+}
+
+void	handle_case_3(void)
+{
+	if (pushSwap.stackA[0] > pushSwap.stackA[1]
+		&& pushSwap.stackA[1] < pushSwap.stackA[2]
+		&& pushSwap.stackA[0] < pushSwap.stackA[2])
+	{
+		swap_A();
+	}
+	else if (pushSwap.stackA[0] > pushSwap.stackA[1]
+		&& pushSwap.stackA[1] > pushSwap.stackA[2]
+		&& pushSwap.stackA[0] > pushSwap.stackA[2])
+	{
+		swap_A();
+		reverse_rotate_A();
+	}
+	else if (pushSwap.stackA[0] > pushSwap.stackA[1]
+		&& pushSwap.stackA[1] < pushSwap.stackA[2]
+		&& pushSwap.stackA[0] > pushSwap.stackA[2])
+	{
+		rotate_A();
+	}
+	else
+	{
+		handle_case_3_2();
 	}
 }
 
-
-void sort_five_elements()
+void	sort_five_elements(void)
 {
-	int i = 0;
+	int	i;
+
+	i = 0;
 	while (i <= pushSwap.sizeA)
 	{
 		if (pushSwap.stackA[0] == pushSwap.sorted_list[0])
 		{
 			push_B();
 		}
-		if (pushSwap.stackA[0] == pushSwap.sorted_list[1]) 
+		if (pushSwap.stackA[0] == pushSwap.sorted_list[1])
 		{
 			push_B();
 		}
@@ -68,46 +98,45 @@ void sort_five_elements()
 	handle_case_3();
 	push_A();
 	push_A();
-	// check if the first element of stackA is smaller than the second, if not, swap
-    if (pushSwap.stackA[0] > pushSwap.stackA[1])
-    {
-        swap_A();
-    }
+	if (pushSwap.stackA[0] > pushSwap.stackA[1])
+	{
+		swap_A();
+	}
 }
 
-void push_swap_small(int n)
+void	push_swap_small(int n)
 {
-    if (n == 5)
-    {
-        sort_five_elements();
-        return;
-    }
+	int	i;
+	int	j;
 
-    int i = 0;
-    int j = 0;
-    while (pushSwap.sorted_list[j] != pushSwap.sorted_list[n - 1])
-    {
-        if (pushSwap.sorted_list[j] == pushSwap.stackA[0])
-        {
-            push_B();
-            j++;
-        }
-        else
-            rotate_A();
-    }
-    while (i < n)
-    {
-        push_A();
-        i++;
-    }
+	if (n == 5)
+	{
+		sort_five_elements();
+		return ;
+	}
+	i = 0;
+	j = 0;
+	while (pushSwap.sorted_list[j] != pushSwap.sorted_list[n - 1])
+	{
+		if (pushSwap.sorted_list[j] == pushSwap.stackA[0])
+		{
+			push_B();
+			j++;
+		}
+		else
+			rotate_A();
+	}
+	while (i < n)
+	{
+		push_A();
+		i++;
+	}
 }
 
-
-////////////////////////////////////////////////
-/////// CASES SUPERIEUR A 10 ///////
-void push_chunk(int n, int nbr, int i)
+void	push_chunk(int n, int nbr, int i)
 {
-	int e, j;
+	int	e;
+	int	j;
 
 	if (i == 1)
 		e = 0;
@@ -117,7 +146,6 @@ void push_chunk(int n, int nbr, int i)
 		j = n;
 	else
 		j = (n / nbr) * i;
-
 	while (e < j)
 	{
 		if (pushSwap.stackA[0] == pushSwap.sorted_list[e])
@@ -126,14 +154,14 @@ void push_chunk(int n, int nbr, int i)
 	}
 }
 
-void handle_4_chunks_division(int n, int nbr)
+void	handle_4_chunks_division(int n, int nbr)
 {
-	int i = 1;
+	int	i;
 
-	while (i <= nbr) // On divise sorted_list par 4 chunks
+	i = 1;
+	while (i <= nbr)
 	{
-		// printf("\n%d \n", (n /nbr) * i );
-		while (pushSwap.sizeA > n - ((n / nbr) * i) + 5) // On transfère chaque chunks du plus petit au plus grand, 1 par 1 en utilisant RRA et PB
+		while (pushSwap.sizeA > n - ((n / nbr) * i) + 5)
 		{
 			push_chunk(n, nbr, i);
 			rotate_A();
@@ -141,9 +169,10 @@ void handle_4_chunks_division(int n, int nbr)
 		i++;
 	}
 }
+
 int get_k(int n, int i, int best_order_value)
 {
-	return k_k(n, i, best_order_value);
+	return (k_k(n, i, best_order_value));
 }
 
 int push_and_update_k(int n, int i, int *best_order, int index)
@@ -222,11 +251,11 @@ void main_algorithm_2()
 	}
 }
 int len(const char *str) {
-    int length = 0;
-    while (str[length] != '\0') {
-        length++;
-    }
-    return length;
+	int length = 0;
+	while (str[length] != '\0') {
+		length++;
+	}
+	return length;
 }
 void main_algorithm(int n)
 {
@@ -295,7 +324,7 @@ void push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	memcpy(pushSwap.stackB, test, sizeof(int) * sizeA + 2);
 	pushSwap.sizeA = sizeA;
 	pushSwap.sizeB = 0;
-    pushSwap.result_to_display = (char *)malloc(99999999);
+	pushSwap.result_to_display = (char *)malloc(99999999);
 	strcpy(pushSwap.result_to_display, "");
 
 	handle_4_chunks_division(n, nbr);
@@ -306,42 +335,42 @@ void push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	}
 	main_algorithm(n);	
 	// check if the first element of stackA is smaller than the second, if not, swap
-    if (pushSwap.stackA[0] > pushSwap.stackA[1])
-    {
-        swap_A();
-    }
+	if (pushSwap.stackA[0] > pushSwap.stackA[1])
+	{
+		swap_A();
+	}
 }
 void push_swap_big(int n, int *stackA,  int sizeA)
 {
-    int i = 1;
-    char *tmp;
+	int i = 1;
+	char *tmp;
 
-    // Allocate memory for the strings
-    tmp = (char *)malloc(99999999);
-    while (i < 9)
-    {
-        if (strlen(pushSwap.result_to_display) == 0)
-        {
-            push_swap_multi(n, i, stackA, sizeA);
-            strcpy(tmp, pushSwap.result_to_display);
-        }
-        else
-        {
-            push_swap_multi(n, i, stackA, sizeA);
-            if (strlen(pushSwap.result_to_display) < strlen(tmp))
-            {
-                strcpy(tmp, pushSwap.result_to_display);
-            }
-        }
-        i++;
-    }
+	// Allocate memory for the strings
+	tmp = (char *)malloc(99999999);
+	while (i < 9)
+	{
+		if (strlen(pushSwap.result_to_display) == 0)
+		{
+			push_swap_multi(n, i, stackA, sizeA);
+			strcpy(tmp, pushSwap.result_to_display);
+		}
+		else
+		{
+			push_swap_multi(n, i, stackA, sizeA);
+			if (strlen(pushSwap.result_to_display) < strlen(tmp))
+			{
+				strcpy(tmp, pushSwap.result_to_display);
+			}
+		}
+		i++;
+	}
 	strcpy(pushSwap.result_to_display, "");
-    strcpy(pushSwap.result_to_display, tmp);
+	strcpy(pushSwap.result_to_display, tmp);
 
 
 
-    // Free the memory
-    free(tmp);
+	// Free the memory
+	free(tmp);
 }
 int push_swap(int *stackA, int sizeA)
 {

@@ -5,6 +5,9 @@
 # include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
+#include <limits.h>
+#include <stdbool.h>
 
 // Structures
 struct pushSwap {
@@ -19,7 +22,7 @@ struct pushSwap pushSwap;
 //Prototypes
 void merge_sort(int *list, int start, int end);
 void merge(int *list, int start, int mid, int end);
-int push_swap();
+int push_swap(int *stackA, int sizeA);
 void swap_A();
 void swap_B();
 void swap_both();
@@ -37,6 +40,7 @@ void reverse_rotate_K(int *stackB, int *sizeB);
 int *best_combination(int k1, int k2, int k3, int n, int size);
 int k_k_k(int *stackB, int *sorted_list, int n, int i, int e, int *sizeB);
 int pepe(int *stackK, int k1, int k2, int k3, int *sizeK, int n, int e1, int e2, int e3);
-
+void push_swap_multi(int n, int nbr, int *stackA, int sizeA);
+void sort_five_elements();
 
 #endif

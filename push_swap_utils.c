@@ -145,26 +145,32 @@ void push_B() {
 // Calculate K
 int k_k(int n, int i, int e)
 {
-	int k = 0;
-	while (k >= 0 && k < 200)
-	{
-		if (pushSwap.sorted_list[n - e - i] == pushSwap.stackB[k])
-		{
-			//printf("\n%d", k);
-			if (k <= (n - i)/2)
-				k = -1; //rotate
-			else
-				k = -2; //reverse rotate
-			//printf(" %d", k);
-			break ;
-		}
-		k++;
-	}
-	if (k != -1 && k != -2)
-		{
-			//printf(" -- %d \n", sorted_list[n - e - i]);
-			return -3;
-		}
-		
-	return k;
+    int k = 0;
+    int target_index = -1;
+
+    // Find the index of the target number in the stack
+    for (k = 0; k < n; k++)
+    {
+        if (pushSwap.sorted_list[n - e - i] == pushSwap.stackB[k])
+        {
+            target_index = k;
+            break;
+        }
+    }
+
+    // If the target number is not found in the stack, return -3
+    if (target_index == -1)
+    {
+        return -3;
+    }
+
+    // Determine whether to rotate or reverse rotate based on the target index
+    if (target_index <= (n - i) / 2)
+    {
+        return -1; // rotate
+    }
+    else
+    {
+        return -2; // reverse rotate
+    }
 }

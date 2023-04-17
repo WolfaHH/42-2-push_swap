@@ -11,8 +11,8 @@ int *best_combination(int k1, int k2, int k3, int n, int size){
     int *stackK = malloc(9000000);
     int sizeK[1];  
     *sizeK = size;
-    static int order[3] = {0, 0, 0};
-    int distance = 9000000;
+    static int order[3] = {0, 1, 3};
+    int distance = 90000;
     int t;
 
     for (int i = 0; i < *sizeK; i++) {
@@ -35,39 +35,43 @@ int pepe(int *stackK, int k1, int k2, int k3, int *sizeK, int n, int e1, int e2,
     int d = 0;
     int k = k_k_k(stackK, pushSwap.sorted_list, n,1,e1, sizeK); 
     int b = 0;
-    //printf("k: %d ", k);
-    //printf("\n");
-    //printf("k: %d ", k);
+
+
     while(p < 3)
     {
+        // print k1, k2, k3
         if (stackK[0] == k1 && p == 0)
         {
             k = k_k_k(stackK, pushSwap.sorted_list, n, 1, e2, sizeK);
             //printf("k: %d ", k);
             p++;
         }         
-        else if (stackK[0] == k2 && p == 1)
+        if (stackK[0] == k2 && p == 1)
         {
             k = k_k_k(stackK, pushSwap.sorted_list, n, 1, e3, sizeK);
             //printf("k: %d ", k);
             p++;
         }
-        else if (stackK[0] == k3 && p == 2)
+        if (stackK[0] == k3 && p == 2)
         {
             p++;
         }
-        
-        else if (k == -2)
+        if (k == -2)
         {
             reverse_rotate_K(stackK, sizeK);
             b--;
         }
-        else if (k == -1)
+        if (k == -1)
         {
             rotate_K(stackK, sizeK);
             b++;
         }
+        if (k == -3)
+        {
+            break ;
+        }
         d++;
+
     }
     
     while (b < 0)
@@ -102,28 +106,34 @@ void reverse_rotate_K(int *stackB, int *sizeB) {
 	stackB[0] = temp;
 }
 
-int k_k_k(int *stackB, int *sorted_list, int n, int i, int e, int *sizeB)
+int k_k_k(int *stackK, int *sorted_list, int n, int i, int e, int *sizeB)
 {
-	int k = 0;
-	while (k >= 0 && k < 200)
-	{
-		if (sorted_list[n - e - i] == stackB[k])
-		{
-			//printf("\n%d", k);
-			if (k <= (n - i)/2)
-				k = -1; //rotate
-			else
-				k = -2; //reverse rotate
-			//printf(" %d", k);
-			break ;
-		}
-		k++;
-	}
-	if (k != -1 && k != -2)
-		{
-			//printf(" -- %d \n", sorted_list[n - e - i]);
-			return -3;
-		}
-		
-	return k;
+    int k = 0;
+    int target_index = -1;
+    
+    // Find the index of the target number in the stack
+    for (k = 0; k < n; k++)
+    {
+        if (sorted_list[n - e - i] == stackK[k])
+        {
+            target_index = k;
+            break;
+        }
+    }
+    
+    // If the target number is not found in the stack, return -3
+    if (target_index == -1)
+    {
+        return -3;
+    }
+    
+    // Determine whether to rotate or reverse rotate based on the target index
+    if (target_index <= (n - i) / 2)
+    {
+        return -1; // rotate
+    }
+    else
+    {
+        return -2; // reverse rotate
+    }
 }

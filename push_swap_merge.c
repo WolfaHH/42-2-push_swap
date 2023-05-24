@@ -1,57 +1,59 @@
-# include "push_swap.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap_merge.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/23 19:54:35 by ngodard           #+#    #+#             */
+/*   Updated: 2023/05/23 20:18:57 by ngodard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//Merge sort algorithm
-void merge_sort(int *list, int start, int end) {
-	if (start < end) {
-		int mid = (start + end) / 2;
-		merge_sort(list, start, mid);
-		merge_sort(list, mid + 1, end);
-		merge(list, start, mid, end);
-	}
+#include "push_swap.h"
+
+// Swap two elements in the list
+void	swap(int *a, int *b)
+{
+	int	t;
+
+	t = *a;
+	*a = *b;
+	*b = t;
 }
 
-//Merge two sorted lists
-void merge(int *list, int start, int mid, int end) {
-	int i, j, k;
-	int n1 = mid - start + 1;
-	int n2 = end - mid;
-	int *L = (int *)malloc(n1 * sizeof(int));
-	int *R = (int *)malloc(n2 * sizeof(int));
-	
-	for (i = 0; i < n1; i++) {
-		L[i] = list[start + i];
-	}
-	for (j = 0; j < n2; j++) {
-		R[j] = list[mid + 1 + j];
-	}
-	
-	i = 0;
-	j = 0;
-	k = start;
-	while (i < n1 && j < n2) {
-		if (L[i] <= R[j]) {
-			list[k] = L[i];
+// Partition function
+int	partition(int *list, int start, int end)
+{
+	int	pivot;
+	int	i;
+	int	j;
+
+	pivot = list[end];
+	i = (start - 1);
+	j = start;
+	while (j <= end - 1)
+	{
+		if (list[j] < pivot)
+		{
 			i++;
+			swap(&list[i], &list[j]);
 		}
-		else {
-			list[k] = R[j];
-			j++;
-		}
-		k++;
-	}
-	
-	while (i < n1) {
-		list[k] = L[i];
-		i++;
-		k++;
-	}
-	
-	while (j < n2) {
-		list[k] = R[j];
 		j++;
-		k++;
 	}
-	
-	free(L);
-	free(R);
+	swap(&list[i + 1], &list[end]);
+	return (i + 1);
+}
+
+// QuickSort function
+void	merge_sort(int *list, int start, int end)
+{
+	int	pi;
+
+	if (start < end)
+	{
+		pi = partition(list, start, end);
+		merge_sort(list, start, pi - 1);
+		merge_sort(list, pi + 1, end);
+	}
 }

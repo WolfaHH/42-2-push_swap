@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:31:59 by ngodard           #+#    #+#             */
-/*   Updated: 2023/04/17 22:06:20 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/05/24 16:23:41 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char *argv[])
 			* pushSwap.sizeA + 2);
 	yoloz(stackcouille, argv);
 	pushSwap.sorted_list = (int *)malloc(pushSwap.sizeA * sizeof(int));
-	i = 0;
+	i = -1;
 	while (i++ < pushSwap.sizeA)
 		pushSwap.sorted_list[i] = pushSwap.stackA[i];
 	merge_sort(pushSwap.sorted_list, 0, pushSwap.sizeA - 1);

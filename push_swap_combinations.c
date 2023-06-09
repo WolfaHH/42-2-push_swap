@@ -6,30 +6,94 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:46:26 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/24 22:12:35 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/09 15:01:52 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int order[3];
+static int g_order[3];
 
 void copy_stack(int *stackK, int *sizeK) {
     for(int i = 0; i < *sizeK; i++)
         stackK[i] = pushSwap.stackB[i];
 }
 
+
+// Function to assign order
+void assign_order(int index, int	permutations[6][3]) {
+    int i;
+    i = permutations[index][0];
+    g_order[0] = i;
+    i = permutations[index][1];
+    g_order[1] = i;
+    i = permutations[index][2];
+    g_order[2] = i;
+}
+
+void useperm(int	permutations[6][3])
+{
+	permutations[0][0] = 0;
+	permutations[0][1] = 1;
+	permutations[0][2] = 2;
+	permutations[1][0] = 0;
+	permutations[1][1] = 2;
+	permutations[1][2] = 1;
+	permutations[2][0] = 1;
+	permutations[2][1] = 0;
+	permutations[2][2] = 2;
+	permutations[3][0] = 1;
+	permutations[3][1] = 2;
+	permutations[3][2] = 0;
+	permutations[4][0] = 2;
+	permutations[4][1] = 0;
+	permutations[4][2] = 1;
+	permutations[5][0] = 2;
+	permutations[5][1] = 1;
+	permutations[5][2] = 0;
+}
+
+// Function to check distance
+int check_distance(int *stackK, int *k, int *sizeK, int * aarg) {
+    int t;
+	int	permutations[6][3];
+	int *arg;
+
+	useperm(permutations);
+	arg = malloc(sizeof(int) * 10);
+	arg[0] = permutations[aarg[2]][0];
+	arg[1] = permutations[aarg[2]][1];
+	arg[2] = permutations[aarg[2]][2];
+	arg[3] = aarg[0];
+	arg[4] = k[permutations[aarg[2]][0]];
+	arg[5] = k[permutations[aarg[2]][1]];
+	arg[6] = k[permutations[aarg[2]][2]];
+	arg[7] = 0;
+	arg[8] = 0;
+	arg[9] = 0;
+    t = pepe(stackK, sizeK, arg);
+    if (t < aarg[1]) {
+        aarg[1] = t;
+        assign_order(aarg[2], permutations);
+    }
+    return aarg[1];
+}
+
 void calculate_order(int *stackK, int *k, int *sizeK, int n) {
-    int distance = 90000, t;
-    int permutations[6][3] = {{0, 1, 2}, {0, 2, 1}, {1, 0, 2}, {1, 2, 0}, {2, 0, 1}, {2, 1, 0}};
-    for(int i = 0; i < 6; i++) {
-        t = pepe(stackK, k[permutations[i][0]], k[permutations[i][1]], k[permutations[i][2]], sizeK, n, permutations[i][0], permutations[i][1], permutations[i][2]);
-        if(t < distance) {
-            distance = t;
-            order[0] = permutations[i][0];
-            order[1] = permutations[i][1];
-            order[2] = permutations[i][2];
-        }
+    int distance;
+	int t;
+	int i;
+	int *aarg;
+
+	aarg = malloc(sizeof(int) * 10);
+    distance = 90000;
+    i = 0;
+	aarg[0] = n;
+	aarg[1] = distance;
+	aarg[2] = i;
+    while (aarg[2] < 6) {
+        aarg[1] = check_distance(stackK, k, sizeK, aarg);
+        aarg[2]++;
     }
 }
 
@@ -40,38 +104,36 @@ int *best_combination(int k[3], int n, int size) {
     copy_stack(stackK, &sizeK);
     calculate_order(stackK, k, &sizeK, n);
     free(stackK);
-    return order;
+    return g_order;
 }
 
-int pepe(int *stackK, int k1, int k2, int k3, int *sizeK, int n, int e1, int e2, int e3)
+int pepe(int *stackK, int *sizeK, int *arg)
 {
-	int p = 0;
-	int d = 0;
-	int k = k_k_k(stackK, pushSwap.sorted_list, n, 1, e1, sizeK);
-	int b = 0;
+	int k;
 
-	while (p < 3)
+	k = k_k_k(stackK, arg[3], arg[0], sizeK);
+	while (arg[7] < 3)
 	{
-		if (stackK[0] == k1 && p == 0 && p++)
-			k = k_k_k(stackK, pushSwap.sorted_list, n, 1, e2, sizeK);
-		if (stackK[0] == k2 && p == 1 && p++)
-			k = k_k_k(stackK, pushSwap.sorted_list, n, 1, e3, sizeK);
-		if (stackK[0] == k3 && p == 2)
-			p++;
-		if (k == -2 && b--)
+		if (stackK[0] == arg[4] && arg[7] == 0 && arg[7]++)
+			k = k_k_k(stackK, arg[3], arg[1], sizeK);
+		if (stackK[0] == arg[5] && arg[7] == 1 && arg[7]++)
+			k = k_k_k(stackK, arg[3], arg[2], sizeK);
+		if (stackK[0] == arg[6] && arg[7] == 2)
+			arg[7]++;
+		if (k == -2 && arg[8]--)
 			reverse_rotate_K(stackK, sizeK);
-		if (k == -1 && b++)
+		if (k == -1 && arg[8]++)
 			rotate_K(stackK, sizeK);
 		if (k == -3)
 			break;
-		d++;
+		arg[9]++;
 	}
-	while (b < 0 && b++)
+	while (arg[8] < 0 && arg[8]++)
 		rotate_K(stackK, sizeK);
 
-	while (b > 0 && b--)
+	while (arg[8] > 0 && arg[8]--)
 		reverse_rotate_K(stackK, sizeK);
-	return d;
+	return arg[9];
 }
 
 // Top number goes to bottom of Stack K
@@ -95,16 +157,18 @@ void reverse_rotate_K(int *stackB, int *sizeB)
 	stackB[0] = temp;
 }
 
-int k_k_k(int *stackK, int *sorted_list, int n, int i, int e, int *sizeB)
+int k_k_k(int *stackK, int n, int e, int *sizeB)
 {
 	int k;
 	int target_index;
-
+	int i;
+	
+	i = 1;
 	k = 0;
 	target_index = -1;
 	while (k < n)
 	{
-		if (sorted_list[n - e - i] == stackK[k])
+		if (pushSwap.sorted_list[n - e - i] == stackK[k])
 		{
 			target_index = k;
 			break;

@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:28:11 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/24 21:07:14 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/09 15:00:50 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int k_k(int n, int i, int e);
 void rotate_K(int *stackB, int *sizeB);
 void reverse_rotate_K(int *stackB, int *sizeB);
 int *best_combination(int k[3], int n, int size);
-int k_k_k(int *stackB, int *sorted_list, int n, int i, int e, int *sizeB);
-int pepe(int *stackK, int k1, int k2, int k3, int *sizeK, int n, int e1, int e2, int e3);
+int k_k_k(int *stackB, int n, int e, int *sizeB);
+int pepe(int *stackK, int *sizeK, int *arg);
 void push_swap_multi(int n, int nbr, int *stackA, int sizeA);
 void sort_five_elements();
 char **ft_split(const char *s, char c);

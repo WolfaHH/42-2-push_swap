@@ -2,6 +2,7 @@ NAME = push_swap
 
 SRCS		= 	push_swap.c \
 				main.c \
+				push_swap_combinations2.c \
 				push_swap_combinations.c \
 				push_swap_merge.c \
 				push_swap_utils.c \

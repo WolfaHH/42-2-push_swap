@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:28:11 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:31:55 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:34:20 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	push_swap_multi(int n, int nbr, int *stackA, int sizeA);
 void	push_swap_big(int n, int *stackA, int sizeA);
 void	ft_strcat(char *dest, const char *src);
 char* ft_strcpy(char* destination, const char* source);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif

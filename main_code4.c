@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:15:16 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:32:13 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:36:35 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	main_algorithm(int n, int i)
 	int			*best_order;
 	static int	default_order[] = {0, 1, 2};
 
-	memcpy(best_order, default_order, sizeof(default_order));
+	ft_memcpy(best_order, default_order, sizeof(default_order));
 	while (n - 1 - i >= 0)
 	{
 		k[0] = pushSwap.sorted_list[n - 1 - i];
@@ -68,12 +68,12 @@ void	push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	int	*test;
 
 	test = (int *)malloc(sizeA * sizeof(int) * sizeA + 2);
-	memcpy(pushSwap.stackA, stackA, sizeof(int) * sizeA + 2);
-	memcpy(pushSwap.stackB, test, sizeof(int) * sizeA + 2);
+	ft_memcpy(pushSwap.stackA, stackA, sizeof(int) * sizeA + 2);
+	ft_memcpy(pushSwap.stackB, test, sizeof(int) * sizeA + 2);
 	pushSwap.sizeA = sizeA;
 	pushSwap.sizeB = 0;
 	pushSwap.result_to_display = (char *)malloc(999999);
-	strcpy(pushSwap.result_to_display, "");
+	ft_strcpy(pushSwap.result_to_display, "");
 	handle_4_chunks_division(n, nbr);
 	while (pushSwap.sizeA > 0)
 	{

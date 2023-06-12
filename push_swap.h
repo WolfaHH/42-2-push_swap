@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:28:11 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:42:35 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:53:56 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@
 # include <stdbool.h>
 
 // Structures
-struct	pushSwap {
-	int	*stackA;
-	int	*stackB;
-	int	sizeA;
-	int	sizeB;
+typedef struct s_pushSwap {
+	int		*stacka;
+	int		*stackb;
+	int		sizea;
+	int		sizeb;
 	char	*result_to_display;
-	int	*sorted_list;
-};
-struct pushSwap	pushSwap;
+	int		*sorted_list;
+}	t_pushSwap;
 
-static int		g_order[3];
+t_pushSwap	g_push_swap;
+
+static int	g_order[3];
 
 //Prototypes
 void	copy_stack(int *stackK, int *sizeK);
@@ -78,7 +79,6 @@ void	push_chunk(int n, int nbr, int i);
 void	handle_4_chunks_division(int n, int nbr);
 int		get_k(int n, int i, int best_order_value);
 int		push_and_update_k(int n, int i, int *best_order, int index);
-void	check_stack(int euh[2], int *best_order, int k, int *p);
 void	main_algorithm_1(int n, int i, int *best_order);
 void	main_algorithm_2_1(void);
 void	toubitouba(void);

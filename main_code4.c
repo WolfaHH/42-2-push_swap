@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:15:16 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:36:35 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:50:55 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	ft_memcpy(pushSwap.stackB, test, sizeof(int) * sizeA + 2);
 	pushSwap.sizeA = sizeA;
 	pushSwap.sizeB = 0;
-	pushSwap.result_to_display = (char *)malloc(999999);
 	ft_strcpy(pushSwap.result_to_display, "");
 	handle_4_chunks_division(n, nbr);
 	while (pushSwap.sizeA > 0)

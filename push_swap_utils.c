@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:31:20 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:32:01 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:42:30 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,19 @@ int	k_k(int n, int i, int e)
 		return (-2);
 }
 
-char* ft_strcpy(char* destination, const char* source) {
-    if (destination == NULL || source == NULL) {
-        return NULL;
-    }
+char	*ft_strcpy(char *destination, const char *source)
+{
+	char	*dest;
 
-    char* dest = destination;
-    while ((*dest++ = *source++)) {}
-
-    return destination;
+	dest = destination;
+	if (destination == NULL || source == NULL)
+	{
+		return (NULL);
+	}
+	while (*source)
+	{
+		*dest++ = *source++;
+	}
+	*dest = '\0';
+	return (destination);
 }

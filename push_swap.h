@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:28:11 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/09 17:41:02 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:31:55 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int		g_order[3];
 
 //Prototypes
 void	copy_stack(int *stackK, int *sizeK);
-voi		assign_order(int index, int permutations[6][3]);
+void	assign_order(int index, int permutations[6][3]);
 void	useperm(int permutations[6][3]);
 int		check_distance(int *stackK, int *k, int *sizeK, int *aarg);
 void	calculate_order(int *stackK, int *k, int *sizeK, int n);
@@ -89,5 +89,6 @@ void	main_algorithm(int n, int i);
 void	push_swap_multi(int n, int nbr, int *stackA, int sizeA);
 void	push_swap_big(int n, int *stackA, int sizeA);
 void	ft_strcat(char *dest, const char *src);
+char* ft_strcpy(char* destination, const char* source);
 
 #endif

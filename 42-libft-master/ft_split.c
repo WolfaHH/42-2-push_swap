@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbaddrul <hbaddrul@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 17:02:38 by hbaddrul          #+#    #+#             */
-/*   Updated: 2021/11/21 20:30:08 by hbaddrul         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:19:37 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ char	**ft_split(const char *s, char c)
 			++s;
 	}
 	ret[i] = 0;
+	free(ret);
 	return (ret);
 }

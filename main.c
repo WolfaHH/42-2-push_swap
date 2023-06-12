@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:31:59 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/24 16:23:41 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:19:41 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ void	yoloz(int *stackcouille, char *argv[])
 		stackcouille[i] = atoi(argv[i + 1]);
 		i++;
 	}	
+}
+
+void	free_memory(int *stackcouille)
+{
+	free(pushSwap.stackA);
+	free(pushSwap.stackB);
+	free(pushSwap.sorted_list);
+	free(pushSwap.result_to_display);
+	free(stackcouille);
 }
 
 int	main(int argc, char *argv[])
@@ -45,9 +54,10 @@ int	main(int argc, char *argv[])
 	while (i++ < pushSwap.sizeA)
 		pushSwap.sorted_list[i] = pushSwap.stackA[i];
 	merge_sort(pushSwap.sorted_list, 0, pushSwap.sizeA - 1);
-	pushSwap.result_to_display = (char *)malloc(99999999);
+	pushSwap.result_to_display = (char *)malloc(999999);
 	strcpy(pushSwap.result_to_display, "");
 	push_swap(stackcouille, pushSwap.sizeA);
 	printf("%s", pushSwap.result_to_display);
+	free_memory(stackcouille);
 	return (0);
 }

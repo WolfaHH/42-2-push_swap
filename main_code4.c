@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:15:16 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/24 21:01:17 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:32:13 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ void	main_algorithm(int n, int i)
 	int			*best_order;
 	static int	default_order[] = {0, 1, 2};
 
-	best_order = malloc(sizeof(int) * 3);
-	best_order = default_order;
+	memcpy(best_order, default_order, sizeof(default_order));
 	while (n - 1 - i >= 0)
 	{
 		k[0] = pushSwap.sorted_list[n - 1 - i];
 		k[1] = pushSwap.sorted_list[n - 2 - i];
 		k[2] = pushSwap.sorted_list[n - 3 - i];
-		best_order = best_combination(k, n - i, pushSwap.sizeB);
+		if (pushSwap.sizeB >= 6)
+			best_order = best_combination(k, n - i, pushSwap.sizeB);
 		if (ttthh(n, i) == 1)
 			break ;
 		main_algorithm_1(n, i, best_order);
@@ -72,7 +72,7 @@ void	push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	memcpy(pushSwap.stackB, test, sizeof(int) * sizeA + 2);
 	pushSwap.sizeA = sizeA;
 	pushSwap.sizeB = 0;
-	pushSwap.result_to_display = (char *)malloc(99999999);
+	pushSwap.result_to_display = (char *)malloc(999999);
 	strcpy(pushSwap.result_to_display, "");
 	handle_4_chunks_division(n, nbr);
 	while (pushSwap.sizeA > 0)
@@ -84,6 +84,7 @@ void	push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	{
 		swap_a();
 	}
+	free(test);
 }
 
 void	push_swap_big(int n, int *stackA, int sizeA)
@@ -92,20 +93,20 @@ void	push_swap_big(int n, int *stackA, int sizeA)
 	char	*tmp;
 
 	i = 1;
-	tmp = (char *)malloc(99999999);
+	tmp = (char *)malloc(999999);
 	while (i < 9)
 	{
 		if (strlen(pushSwap.result_to_display) == 0)
 		{
 			push_swap_multi(n, i, stackA, sizeA);
-			strcpy(tmp, pushSwap.result_to_display);
+			ft_strcpy(tmp, pushSwap.result_to_display);
 		}
 		else
 		{
 			push_swap_multi(n, i, stackA, sizeA);
 			if (strlen(pushSwap.result_to_display) < strlen(tmp))
 			{
-				strcpy(tmp, pushSwap.result_to_display);
+				ft_strcpy(tmp, pushSwap.result_to_display);
 			}
 		}
 		i++;

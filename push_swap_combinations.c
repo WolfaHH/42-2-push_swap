@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:46:26 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/09 17:34:33 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:09:09 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	check_distance(int *stackK, int *k, int *sizeK, int *aarg)
 		aarg[1] = t;
 		assign_order(aarg[2], permutations);
 	}
+	free(arg);
 	return (aarg[1]);
 }
 
@@ -80,7 +81,7 @@ void	calculate_order(int *stackK, int *k, int *sizeK, int n)
 	int	i;
 	int	*aarg;
 
-	aarg = malloc(sizeof(int) * 10);
+	aarg = malloc(sizeof(int) * 100);
 	distance = 90000;
 	i = 0;
 	aarg[0] = n;
@@ -91,6 +92,7 @@ void	calculate_order(int *stackK, int *k, int *sizeK, int n)
 		aarg[1] = check_distance(stackK, k, sizeK, aarg);
 		aarg[2]++;
 	}
+	free (aarg);
 }
 
 int	*best_combination(int k[3], int n, int size)
@@ -99,7 +101,7 @@ int	*best_combination(int k[3], int n, int size)
 	int	sizek;
 
 	sizek = size;
-	stackk = malloc(9000000);
+	stackk = malloc(900000);
 	copy_stack(stackk, &sizek);
 	calculate_order(stackk, k, &sizek, n);
 	free(stackk);

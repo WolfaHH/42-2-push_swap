@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 22:05:11 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/23 19:29:32 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/13 08:57:08 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	checker(char *argv[], int argc)
 		split_input = ft_split(argv[1], ' ');
 		num_elements = count_elements(split_input);
 		argc = replace_argv(argc, num_elements, argv, split_input);
-		free(split_input);
 		return (argc);
 	}
 	return (-1);
@@ -66,7 +65,7 @@ int	superchecker(char *argv[], int argc)
 
 	if (argc < 2)
 	{
-		printf("Error\n");
+		ft_printf("Error\n");
 		return (0);
 	}
 	retour = checker(argv, argc);
@@ -74,7 +73,7 @@ int	superchecker(char *argv[], int argc)
 		argc = retour;
 	if (!is_valid_input(argc, argv))
 	{
-		printf("Error\n");
+		ft_printf("Error\n");
 		return (0);
 	}
 	return (retour);
@@ -82,10 +81,10 @@ int	superchecker(char *argv[], int argc)
 
 void	instantiation(int argc)
 {
-	pushSwap.sizeA = argc - 1;
-	pushSwap.sizeB = 0;
-	pushSwap.stackA = (int *)malloc(pushSwap.sizeA * sizeof(int)
-			* pushSwap.sizeA + 2);
-	pushSwap.stackB = (int *)malloc(pushSwap.sizeA * sizeof(int)
-			* pushSwap.sizeA + 2);
+	g_push_swap.sizea = argc - 1;
+	g_push_swap.sizeb = 0;
+	g_push_swap.stacka = (int *)malloc(g_push_swap.sizea * sizeof(int)
+			* g_push_swap.sizea + 2);
+	g_push_swap.stackb = (int *)malloc(g_push_swap.sizea * sizeof(int)
+			* g_push_swap.sizea + 2);
 }

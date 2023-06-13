@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 17:12:56 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 14:43:58 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:55:54 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	copy_stack(int *stackK, int *sizeK)
 	i = 0;
 	while (i < *sizeK)
 	{
-		stackK[i] = pushSwap.stackB[i];
+		stackK[i] = g_push_swap.stackb[i];
 		i++;
 	}
 }
@@ -94,7 +94,7 @@ int	k_k_k(int *stackK, int n, int e, int *sizeB)
 	target_index = -1;
 	while (k < n)
 	{
-		if (pushSwap.sorted_list[n - e - i] == stackK[k])
+		if (g_push_swap.sorted_list[n - e - i] == stackK[k])
 		{
 			target_index = k;
 			break ;

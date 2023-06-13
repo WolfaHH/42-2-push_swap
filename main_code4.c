@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:15:16 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:50:55 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/13 08:53:30 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	main_algorithm(int n, int i)
 	ft_memcpy(best_order, default_order, sizeof(default_order));
 	while (n - 1 - i >= 0)
 	{
-		k[0] = pushSwap.sorted_list[n - 1 - i];
-		k[1] = pushSwap.sorted_list[n - 2 - i];
-		k[2] = pushSwap.sorted_list[n - 3 - i];
-		if (pushSwap.sizeB >= 6)
-			best_order = best_combination(k, n - i, pushSwap.sizeB);
+		k[0] = g_push_swap.sorted_list[n - 1 - i];
+		k[1] = g_push_swap.sorted_list[n - 2 - i];
+		k[2] = g_push_swap.sorted_list[n - 3 - i];
+		if (g_push_swap.sizeb >= 6)
+			best_order = best_combination(k, n - i, g_push_swap.sizeb);
 		if (ttthh(n, i) == 1)
 			break ;
 		main_algorithm_1(n, i, best_order);
@@ -68,18 +68,18 @@ void	push_swap_multi(int n, int nbr, int *stackA, int sizeA)
 	int	*test;
 
 	test = (int *)malloc(sizeA * sizeof(int) * sizeA + 2);
-	ft_memcpy(pushSwap.stackA, stackA, sizeof(int) * sizeA + 2);
-	ft_memcpy(pushSwap.stackB, test, sizeof(int) * sizeA + 2);
-	pushSwap.sizeA = sizeA;
-	pushSwap.sizeB = 0;
-	ft_strcpy(pushSwap.result_to_display, "");
+	ft_memcpy(g_push_swap.stacka, stackA, sizeof(int) * sizeA + 2);
+	ft_memcpy(g_push_swap.stackb, test, sizeof(int) * sizeA + 2);
+	g_push_swap.sizea = sizeA;
+	g_push_swap.sizeb = 0;
+	ft_strcpy(g_push_swap.result_to_display, "");
 	handle_4_chunks_division(n, nbr);
-	while (pushSwap.sizeA > 0)
+	while (g_push_swap.sizea > 0)
 	{
 		push_b();
 	}
 	main_algorithm(n, 0);
-	if (pushSwap.stackA[0] > pushSwap.stackA[1])
+	if (g_push_swap.stacka[0] > g_push_swap.stacka[1])
 	{
 		swap_a();
 	}
@@ -95,22 +95,22 @@ void	push_swap_big(int n, int *stackA, int sizeA)
 	tmp = (char *)malloc(999999);
 	while (i < 9)
 	{
-		if (strlen(pushSwap.result_to_display) == 0)
+		if (ft_strlen(g_push_swap.result_to_display) == 0)
 		{
 			push_swap_multi(n, i, stackA, sizeA);
-			ft_strcpy(tmp, pushSwap.result_to_display);
+			ft_strcpy(tmp, g_push_swap.result_to_display);
 		}
 		else
 		{
 			push_swap_multi(n, i, stackA, sizeA);
-			if (strlen(pushSwap.result_to_display) < strlen(tmp))
+			if (ft_strlen(g_push_swap.result_to_display) < ft_strlen(tmp))
 			{
-				ft_strcpy(tmp, pushSwap.result_to_display);
+				ft_strcpy(tmp, g_push_swap.result_to_display);
 			}
 		}
 		i++;
 	}
-	strcpy(pushSwap.result_to_display, "");
-	strcpy(pushSwap.result_to_display, tmp);
+	ft_strcpy(g_push_swap.result_to_display, "");
+	ft_strcpy(g_push_swap.result_to_display, tmp);
 	free(tmp);
 }

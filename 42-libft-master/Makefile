@@ -7,7 +7,7 @@ SOURCES = \
 	ft_calloc.c ft_strdup.c ft_substr.c ft_strjoin.c ft_strtrim.c ft_split.c \
 	ft_itoa.c ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 	ft_putendl_fd.c ft_putnbr_fd.c ft_abs_bonus.c ft_isspace_bonus.c \
-	ft_numlen_bonus.c ft_atol_bonus.c ft_itoa_base_bonus.c
+	ft_numlen_bonus.c ft_atol_bonus.c ft_itoa_base_bonus.c set1.c set2.c printf.c
 BSOURCES = \
 	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c \
 	ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c

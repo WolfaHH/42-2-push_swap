@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbaddrul <hbaddrul@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 15:21:06 by hbaddrul          #+#    #+#             */
-/*   Updated: 2021/11/23 12:39:06 by hbaddrul         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:20:30 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include <stdarg.h>
+# include <stdint.h>
+# include <unistd.h>
 
 typedef struct s_list
 {
@@ -77,5 +80,16 @@ int		ft_isspace(int c);
 int		ft_numlen(int n, int base);
 long	ft_atol(const char *str);
 char	*ft_itoa_base(int n, int base);
+int		ft_c(int c);
+int		ft_s(char*s);
+int		ft_u(unsigned long n, unsigned int base);
+int		ft_p(void*p);
+int		ft_d(int n);
+int		ft_i(int n);
+int		ft_x(unsigned int n);
+int		ft_x_maj(unsigned int n);
+int		ft_percent(void);
+int		f_mode(va_list args, char mode);
+int		ft_printf(const char*fmt, ...);
 
 #endif

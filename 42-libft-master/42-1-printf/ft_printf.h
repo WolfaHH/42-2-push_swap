@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 22:10:00 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:55:32 by ngodard          ###   ########.fr       */
+/*   Created: 2023/01/15 16:36:04 by ngodard           #+#    #+#             */
+/*   Updated: 2023/01/15 16:37:04 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
-int	push_swap(int *stackA, int sizeA)
-{
-	int	i;
-	int	e;
-	int	n;
+# include <unistd.h>
+# include <stdarg.h>
+# include <stdint.h>
 
-	i = 0;
-	n = g_push_swap.sizea;
-	if (check_sorted() == 0)
-		return (0);
-	if (n <= 10)
-	{
-		if (n == 2)
-			swap_a();
-		else if (n == 3)
-			handle_case_3();
-		else
-			push_swap_small(n);
-	}
-	else if (n > 10)
-		push_swap_big(n, stackA, sizeA);
-	return (0);
-}
+int	ft_c(int c);
+int	ft_s(char*s);
+int	ft_u(unsigned long n, unsigned int base);
+int	ft_p(void*p);
+int	ft_d(int n);
+int	ft_i(int n);
+int	ft_x(unsigned int n);
+int	ft_x_maj(unsigned int n);
+int	ft_percent(void);
+int	f_mode(va_list args, char mode);
+int	ft_printf(const char*fmt, ...);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:15:02 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/24 19:19:03 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:55:49 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	push_chunk(int n, int nbr, int i)
 		j = (n / nbr) * i;
 	while (e < j)
 	{
-		if (pushSwap.stackA[0] == pushSwap.sorted_list[e])
+		if (g_push_swap.stacka[0] == g_push_swap.sorted_list[e])
 			push_b();
 		e++;
 	}
@@ -40,7 +40,7 @@ void	handle_4_chunks_division(int n, int nbr)
 	i = 1;
 	while (i <= nbr)
 	{
-		while (pushSwap.sizeA > n - ((n / nbr) * i) + 5)
+		while (g_push_swap.sizea > n - ((n / nbr) * i) + 5)
 		{
 			push_chunk(n, nbr, i);
 			rotate_a();

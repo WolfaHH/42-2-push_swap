@@ -14,6 +14,7 @@ SRCS		= 	push_swap.c \
 				main_code2.c \
 				main_code3.c \
 				main_code4.c \
+				utils.c \
 
 LIBFT_DIR	= 42-libft-master
 LIBFT_SRCS	= $(wildcard $(LIBFT_DIR)/*.c)

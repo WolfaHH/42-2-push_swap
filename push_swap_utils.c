@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:31:20 by ngodard           #+#    #+#             */
-/*   Updated: 2023/06/12 15:42:30 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:55:54 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,25 @@ void	push_a(void)
 {
 	int	i;
 
-	if (pushSwap.sizeB > 0)
+	if (g_push_swap.sizeb > 0)
 	{
 		i = 0;
-		while (i < pushSwap.sizeA)
+		while (i < g_push_swap.sizea)
 		{
-			pushSwap.stackA[pushSwap.sizeA - i] = pushSwap.stackA
-			[pushSwap.sizeA - 1 - i];
+			g_push_swap.stacka[g_push_swap.sizea - i] = g_push_swap.stacka
+			[g_push_swap.sizea - 1 - i];
 			i++;
 		}
-		pushSwap.stackA[0] = pushSwap.stackB[0];
-		pushSwap.sizeB -= 1;
-		pushSwap.sizeA += 1;
+		g_push_swap.stacka[0] = g_push_swap.stackb[0];
+		g_push_swap.sizeb -= 1;
+		g_push_swap.sizea += 1;
 		i = 0;
-		while (i < pushSwap.sizeB)
+		while (i < g_push_swap.sizeb)
 		{
-			pushSwap.stackB[i] = pushSwap.stackB[i + 1];
+			g_push_swap.stackb[i] = g_push_swap.stackb[i + 1];
 			i++;
 		}
-		ft_strcat(pushSwap.result_to_display, "pa\n");
+		ft_strcat(g_push_swap.result_to_display, "pa\n");
 	}
 }
 
@@ -42,25 +42,25 @@ void	push_b(void)
 {
 	int	i;
 
-	if (pushSwap.sizeA > 0)
+	if (g_push_swap.sizea > 0)
 	{
 		i = 0;
-		while (i < pushSwap.sizeB)
+		while (i < g_push_swap.sizeb)
 		{
-			pushSwap.stackB[pushSwap.sizeB - i] = pushSwap.stackB
-			[pushSwap.sizeB - 1 - i];
+			g_push_swap.stackb[g_push_swap.sizeb - i] = g_push_swap.stackb
+			[g_push_swap.sizeb - 1 - i];
 			i++;
 		}
-		pushSwap.stackB[0] = pushSwap.stackA[0];
-		pushSwap.sizeA -= 1;
-		pushSwap.sizeB += 1;
+		g_push_swap.stackb[0] = g_push_swap.stacka[0];
+		g_push_swap.sizea -= 1;
+		g_push_swap.sizeb += 1;
 		i = 0;
-		while (i < pushSwap.sizeA)
+		while (i < g_push_swap.sizea)
 		{
-			pushSwap.stackA[i] = pushSwap.stackA[i + 1];
+			g_push_swap.stacka[i] = g_push_swap.stacka[i + 1];
 			i++;
 		}
-		ft_strcat(pushSwap.result_to_display, "pb\n");
+		ft_strcat(g_push_swap.result_to_display, "pb\n");
 	}
 }
 
@@ -73,7 +73,7 @@ int	k_k(int n, int i, int e)
 	target_index = -1;
 	while (k < n)
 	{
-		if (pushSwap.sorted_list[n - e - i] == pushSwap.stackB[k])
+		if (g_push_swap.sorted_list[n - e - i] == g_push_swap.stackb[k])
 		{
 			target_index = k;
 			break ;

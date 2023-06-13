@@ -6,7 +6,7 @@
 /*   By: ngodard <ngodard@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 19:14:55 by ngodard           #+#    #+#             */
-/*   Updated: 2023/05/23 19:53:58 by ngodard          ###   ########.fr       */
+/*   Updated: 2023/06/12 15:55:49 by ngodard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	check_sorted(void)
 	int	i;
 
 	i = 0;
-	while (i <= pushSwap.sizeA)
+	while (i <= g_push_swap.sizea)
 	{
-		if (pushSwap.sorted_list[i] != pushSwap.stackA[i])
+		if (g_push_swap.sorted_list[i] != g_push_swap.stacka[i])
 		{
 			break ;
 		}
-		if (i == pushSwap.sizeA)
+		if (i == g_push_swap.sizea)
 		{
 			return (0);
 		}
@@ -34,16 +34,16 @@ int	check_sorted(void)
 
 void	handle_case_3_2(void)
 {
-	if (pushSwap.stackA[0] < pushSwap.stackA[1]
-		&& pushSwap.stackA[1] > pushSwap.stackA[2]
-		&& pushSwap.stackA[0] < pushSwap.stackA[2])
+	if (g_push_swap.stacka[0] < g_push_swap.stacka[1]
+		&& g_push_swap.stacka[1] > g_push_swap.stacka[2]
+		&& g_push_swap.stacka[0] < g_push_swap.stacka[2])
 	{
 		swap_a();
 		rotate_a();
 	}
-	else if (pushSwap.stackA[0] < pushSwap.stackA[1]
-		&& pushSwap.stackA[1] > pushSwap.stackA[2]
-		&& pushSwap.stackA[0] > pushSwap.stackA[2])
+	else if (g_push_swap.stacka[0] < g_push_swap.stacka[1]
+		&& g_push_swap.stacka[1] > g_push_swap.stacka[2]
+		&& g_push_swap.stacka[0] > g_push_swap.stacka[2])
 	{
 		reverse_rotate_a();
 	}	
@@ -51,22 +51,22 @@ void	handle_case_3_2(void)
 
 void	handle_case_3(void)
 {
-	if (pushSwap.stackA[0] > pushSwap.stackA[1]
-		&& pushSwap.stackA[1] < pushSwap.stackA[2]
-		&& pushSwap.stackA[0] < pushSwap.stackA[2])
+	if (g_push_swap.stacka[0] > g_push_swap.stacka[1]
+		&& g_push_swap.stacka[1] < g_push_swap.stacka[2]
+		&& g_push_swap.stacka[0] < g_push_swap.stacka[2])
 	{
 		swap_a();
 	}
-	else if (pushSwap.stackA[0] > pushSwap.stackA[1]
-		&& pushSwap.stackA[1] > pushSwap.stackA[2]
-		&& pushSwap.stackA[0] > pushSwap.stackA[2])
+	else if (g_push_swap.stacka[0] > g_push_swap.stacka[1]
+		&& g_push_swap.stacka[1] > g_push_swap.stacka[2]
+		&& g_push_swap.stacka[0] > g_push_swap.stacka[2])
 	{
 		swap_a();
 		reverse_rotate_a();
 	}
-	else if (pushSwap.stackA[0] > pushSwap.stackA[1]
-		&& pushSwap.stackA[1] < pushSwap.stackA[2]
-		&& pushSwap.stackA[0] > pushSwap.stackA[2])
+	else if (g_push_swap.stacka[0] > g_push_swap.stacka[1]
+		&& g_push_swap.stacka[1] < g_push_swap.stacka[2]
+		&& g_push_swap.stacka[0] > g_push_swap.stacka[2])
 	{
 		rotate_a();
 	}
@@ -81,13 +81,13 @@ void	sort_five_elements(void)
 	int	i;
 
 	i = 0;
-	while (i <= pushSwap.sizeA)
+	while (i <= g_push_swap.sizea)
 	{
-		if (pushSwap.stackA[0] == pushSwap.sorted_list[0])
+		if (g_push_swap.stacka[0] == g_push_swap.sorted_list[0])
 		{
 			push_b();
 		}
-		if (pushSwap.stackA[0] == pushSwap.sorted_list[1])
+		if (g_push_swap.stacka[0] == g_push_swap.sorted_list[1])
 		{
 			push_b();
 		}
@@ -98,7 +98,7 @@ void	sort_five_elements(void)
 	handle_case_3();
 	push_a();
 	push_a();
-	if (pushSwap.stackA[0] > pushSwap.stackA[1])
+	if (g_push_swap.stacka[0] > g_push_swap.stacka[1])
 	{
 		swap_a();
 	}
@@ -116,9 +116,9 @@ void	push_swap_small(int n)
 	}
 	i = 0;
 	j = 0;
-	while (pushSwap.sorted_list[j] != pushSwap.sorted_list[n - 1])
+	while (g_push_swap.sorted_list[j] != g_push_swap.sorted_list[n - 1])
 	{
-		if (pushSwap.sorted_list[j] == pushSwap.stackA[0])
+		if (g_push_swap.sorted_list[j] == g_push_swap.stacka[0])
 		{
 			push_b();
 			j++;
